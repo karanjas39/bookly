@@ -17,6 +17,12 @@ export async function UserDetail(c: Context) {
       where: {
         id: userId,
       },
+      select: {
+        name: true,
+        email: true,
+        createdAt: true,
+        verified: true,
+      },
     });
 
     if (!user) throw new Error();

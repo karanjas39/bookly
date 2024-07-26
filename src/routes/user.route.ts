@@ -1,7 +1,16 @@
 import { Hono } from "hono";
-import { authMiddleware } from "../middlewares/auth.middleware";
+import {
+  authMiddleware,
+  isverifiedMiddleware,
+} from "../middlewares/auth.middleware";
 import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
-import { SellBook, UpdateBook } from "../controllers/book.controllers";
+import {
+  DeleteBook,
+  GetBook,
+  GetBooks,
+  SellBook,
+  UpdateBook,
+} from "../controllers/book.controllers";
 
 const User = new Hono<{
   Bindings: {
@@ -13,14 +22,15 @@ const User = new Hono<{
   };
 }>();
 
-User.use("/*", authMiddleware);
-
 // USER
-User.get("/detail", UserDetail);
-User.put("/password/update", UpdatePassword);
+User.get("/detail", authMiddleware, UserDetail);
+User.put("/password/update", authMiddleware, UpdatePassword);
 
 // BOOK
-User.post("/book/sell", SellBook);
-User.put("/book/update", UpdateBook);
+User.get("/book/:id", GetBook);
+User.get("/books", GetBooks);
+User.post("/book/sell", authMiddleware, isverifiedMiddleware, SellBook);
+User.put("/book/update", authMiddleware, isverifiedMiddleware, UpdateBook);
+User.delete("/book/delete", authMiddleware, isverifiedMiddleware, DeleteBook);
 
 export default User;

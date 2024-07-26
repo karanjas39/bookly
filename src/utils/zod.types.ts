@@ -33,3 +33,7 @@ export const z_updateSellBook = z.object({
   genreId: z.string().uuid().optional(),
   listed: z.boolean().optional(),
 });
+
+export const z_id = z.object({
+  id: z.string().uuid(),
+});
