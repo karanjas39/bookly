@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
-import { SellBook } from "../controllers/book.controllers";
+import { SellBook, UpdateBook } from "../controllers/book.controllers";
 
 const User = new Hono<{
   Bindings: {
@@ -17,9 +17,10 @@ User.use("/*", authMiddleware);
 
 // USER
 User.get("/detail", UserDetail);
-User.put("/update/password", UpdatePassword);
+User.put("/password/update", UpdatePassword);
 
 // BOOK
 User.post("/book/sell", SellBook);
+User.put("/book/update", UpdateBook);
 
 export default User;

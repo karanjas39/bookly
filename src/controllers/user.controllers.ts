@@ -19,12 +19,7 @@ export async function UserDetail(c: Context) {
       },
     });
 
-    if (!user)
-      return c.json({
-        success: false,
-        status: 400,
-        message: "User does not exist.",
-      });
+    if (!user) throw new Error();
 
     return c.json({
       success: true,
@@ -35,7 +30,7 @@ export async function UserDetail(c: Context) {
     return c.json({
       success: false,
       status: 400,
-      message: "Error in finding this user.",
+      message: "[Error] in finding this user.",
     });
   }
 }
@@ -65,22 +60,11 @@ export async function UpdatePassword(c: Context) {
       },
     });
 
-    if (!isUser)
-      return c.json({
-        success: false,
-        status: 400,
-        message: "User does not found.",
-      });
+    if (!isUser) throw new Error();
 
     const isPassword = compareSync(body.prevPassword, isUser.password);
 
-    if (!isPassword) {
-      return c.json({
-        success: false,
-        status: 400,
-        message: "Incorrect password.",
-      });
-    }
+    if (!isPassword) throw new Error();
 
     const salt = genSaltSync(c.env.SALT);
     const newPassword = hashSync(body.currPassword, salt);
@@ -103,7 +87,7 @@ export async function UpdatePassword(c: Context) {
     return c.json({
       success: false,
       status: 400,
-      message: "Error in updating this user.",
+      message: "[Error] in updating this user.",
     });
   }
 }

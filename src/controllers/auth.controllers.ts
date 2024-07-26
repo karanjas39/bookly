@@ -25,19 +25,6 @@ export async function Signup(c: Context) {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const isUserExist = await prisma.user.findUnique({
-      where: {
-        email: body.email,
-      },
-    });
-
-    if (isUserExist)
-      return c.json({
-        success: false,
-        status: 400,
-        message: "User already exist.",
-      });
-
     const salt = genSaltSync(c.env.SALT);
     const hashedPassword = hashSync(body.password, salt);
 
@@ -50,6 +37,8 @@ export async function Signup(c: Context) {
       },
     });
 
+    if (!newUser) throw new Error();
+
     return c.json({
       success: true,
       status: 200,
@@ -59,7 +48,7 @@ export async function Signup(c: Context) {
     return c.json({
       success: false,
       status: 400,
-      message: "Unable to create new user.",
+      message: "[Error] while creating new user.",
     });
   }
 }
@@ -118,7 +107,7 @@ export async function Signin(c: Context) {
     return c.json({
       success: false,
       status: 400,
-      message: "Unable to login right now.",
+      message: "[Error] while logging in right now.",
     });
   }
 }

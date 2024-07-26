@@ -23,3 +23,13 @@ export const z_sellBook = z.object({
   price: z.number(),
   genreId: z.string().uuid(),
 });
+
+export const z_updateSellBook = z.object({
+  id: z.string().uuid(),
+  name: z.string().optional(),
+  description: z.string().optional(),
+  author: z.string().optional(),
+  price: z.number().optional(),
+  genreId: z.string().uuid().optional(),
+  listed: z.boolean().optional(),
+});
