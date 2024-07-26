@@ -63,7 +63,7 @@ export async function isverifiedMiddleware(c: Context, next: Next) {
       return c.json({
         success: false,
         status: 400,
-        message: "User is unauthorized.",
+        message: "User is not verified.",
       });
     }
 

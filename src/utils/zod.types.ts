@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 export const z_signUp = z.object({
   name: z.string(),
@@ -36,4 +36,9 @@ export const z_updateSellBook = z.object({
 
 export const z_id = z.object({
   id: z.string().uuid(),
+});
+
+export const z_createFeedback = z.object({
+  feedback: z.string(),
+  bookId: z.string().uuid(),
 });
