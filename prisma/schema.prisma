@@ -30,6 +30,7 @@ model Book {
   author      String
   listed        Boolean   @default(true)
   price       Float
+  sold Boolean @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   feedbacks   Feedback[]
@@ -46,7 +47,6 @@ model Book {
 
 model BuyRequest {
   id          String       @id @default(uuid())
-  sold Boolean
 
   userId String
   user User @relation(fields: [userId],references: [id])

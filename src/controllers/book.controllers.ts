@@ -209,6 +209,7 @@ export async function GetBooks(c: Context) {
     const books = await prisma.book.findMany({
       where: {
         listed: true,
+        sold: false,
       },
       select: {
         name: true,

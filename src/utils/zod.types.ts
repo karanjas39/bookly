@@ -42,3 +42,7 @@ export const z_createFeedback = z.object({
   feedback: z.string(),
   bookId: z.string().uuid(),
 });
+
+export const z_createBuyRequest = z.object({
+  bookId: z.string().uuid(),
+});

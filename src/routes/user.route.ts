@@ -5,6 +5,7 @@ import {
 } from "../middlewares/auth.middleware";
 import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
 import { UserAllFeedbacks } from "../controllers/feedback.controllers";
+import { AllBuyRequest } from "../controllers/bookRequest.controllers";
 
 const User = new Hono<{
   Bindings: {
@@ -26,6 +27,14 @@ User.get(
   authMiddleware,
   isverifiedMiddleware,
   UserAllFeedbacks
+);
+
+// BUY REQUEST
+User.get(
+  "/buy-request/all",
+  authMiddleware,
+  isverifiedMiddleware,
+  AllBuyRequest
 );
 
 export default User;

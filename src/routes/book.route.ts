@@ -14,6 +14,10 @@ import {
   CreateFeedback,
   DeleteFeedback,
 } from "../controllers/feedback.controllers";
+import {
+  AcceptBuyrequest,
+  CreateBuyRequest,
+} from "../controllers/bookRequest.controllers";
 
 const Book = new Hono<{
   Bindings: {
@@ -45,6 +49,21 @@ Book.delete(
   authMiddleware,
   isverifiedMiddleware,
   DeleteFeedback
+);
+
+// BUY REQUEST
+Book.post(
+  "/buy-request/create",
+  authMiddleware,
+  isverifiedMiddleware,
+  CreateBuyRequest
+);
+
+Book.post(
+  "/buy-request/accept",
+  authMiddleware,
+  isverifiedMiddleware,
+  AcceptBuyrequest
 );
 
 export default Book;

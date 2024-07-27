@@ -1,0 +1,169 @@
+import { Context } from "hono";
+import { PrismaClient } from "@prisma/client/edge";
+import { withAccelerate } from "@prisma/extension-accelerate";
+import { z } from "zod";
+import { z_createBuyRequest, z_id } from "../utils/zod.types";
+
+export async function CreateBuyRequest(c: Context) {
+  const userId: string = c.get("userId");
+  const body: z.infer<typeof z_createBuyRequest> = await c.req.json();
+
+  const { success, data } = z_createBuyRequest.strip().safeParse(body);
+
+  if (!success) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "Invalid inputs are passed.",
+    });
+  }
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const isBookAvailable = await prisma.book.findUnique({
+      where: {
+        id: body.bookId,
+      },
+    });
+
+    if (
+      isBookAvailable &&
+      (isBookAvailable.sold ||
+        !isBookAvailable.listed ||
+        isBookAvailable.sellerId === userId)
+    )
+      throw new Error();
+
+    const newBookRequest = await prisma.buyRequest.create({
+      data: {
+        bookId: data.bookId,
+        userId,
+      },
+    });
+
+    if (!newBookRequest) throw new Error();
+
+    return c.json({
+      success: true,
+      status: 200,
+      newBookRequest,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while creating book buyrequest.",
+    });
+  }
+}
+
+export async function AcceptBuyrequest(c: Context) {
+  const userId: string = c.get("userId");
+  const body: z.infer<typeof z_id> = await c.req.json();
+
+  const { success, data } = z_id.strip().safeParse(body);
+
+  if (!success) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "Invalid inputs are passed.",
+    });
+  }
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const buyRequest = await prisma.buyRequest.findUnique({
+      where: {
+        id: data.id,
+      },
+    });
+
+    if (!buyRequest) throw new Error();
+
+    const bookToBeSold = await prisma.book.findUnique({
+      where: {
+        id: buyRequest.bookId,
+        sellerId: userId,
+      },
+    });
+
+    if (!bookToBeSold || bookToBeSold.sold || !bookToBeSold.listed)
+      throw new Error();
+
+    await prisma.book.update({
+      where: {
+        id: buyRequest.bookId,
+      },
+      data: {
+        sold: true,
+        listed: false,
+      },
+    });
+
+    return c.json({
+      success: true,
+      status: 200,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while accepting book buy request.",
+    });
+  }
+}
+
+export async function AllBuyRequest(c: Context) {
+  const userId: string = c.get("userId");
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const buyRequests = await prisma.book.findMany({
+      where: {
+        sellerId: userId,
+      },
+      select: {
+        buyRequests: {
+          select: {
+            book: {
+              select: {
+                name: true,
+                author: true,
+              },
+            },
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!buyRequests.length) throw new Error();
+
+    return c.json({
+      success: true,
+      status: 200,
+      buyRequests,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while listing this book.",
+    });
+  }
+}
