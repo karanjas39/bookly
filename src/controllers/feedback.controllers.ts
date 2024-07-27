@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z_createFeedback, z_id } from "../utils/zod.types";
+import { z_createFeedback, z_id } from "@singhjaskaran/bookly-common";
 import { z } from "zod";
 
 export async function CreateFeedback(c: Context) {

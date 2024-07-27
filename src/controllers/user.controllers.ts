@@ -2,7 +2,7 @@ import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { z } from "zod";
-import { z_updatePassword } from "../utils/zod.types";
+import { z_updatePassword } from "@singhjaskaran/bookly-common";
 import { compareSync, genSaltSync, hashSync } from "bcrypt-ts";
 
 export async function UserDetail(c: Context) {

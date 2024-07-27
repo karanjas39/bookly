@@ -2,7 +2,7 @@ import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { z } from "zod";
-import { z_createBuyRequest, z_id } from "../utils/zod.types";
+import { z_createBuyRequest, z_id } from "@singhjaskaran/bookly-common";
 
 export async function CreateBuyRequest(c: Context) {
   const userId: string = c.get("userId");

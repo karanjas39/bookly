@@ -3,7 +3,7 @@ import { sign } from "hono/jwt";
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z_signUp, z_singIn } from "../utils/zod.types";
+import { z_signUp, z_singIn } from "@singhjaskaran/bookly-common";
 import { genSaltSync, hashSync, compareSync } from "bcrypt-ts";
 
 export async function Signup(c: Context) {

@@ -1,7 +1,11 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z_id, z_sellBook, z_updateSellBook } from "../utils/zod.types";
+import {
+  z_id,
+  z_sellBook,
+  z_updateSellBook,
+} from "@singhjaskaran/bookly-common";
 import { z } from "zod";
 
 export async function SellBook(c: Context) {
