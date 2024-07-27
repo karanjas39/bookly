@@ -46,3 +46,20 @@ export const z_createFeedback = z.object({
 export const z_createBuyRequest = z.object({
   bookId: z.string().uuid(),
 });
+
+// TYPES
+export type z_signUp_type = z.infer<typeof z_signUp>;
+
+export type z_singIn_type = z.infer<typeof z_singIn>;
+
+export type z_updatePassword_type = z.infer<typeof z_updatePassword>;
+
+export type z_sellBook_type = z.infer<typeof z_sellBook>;
+
+export type z_updateSellBook_type = z.infer<typeof z_updateSellBook>;
+
+export type z_id_type = z.infer<typeof z_id>;
+
+export type z_createFeedback_type = z.infer<typeof z_createFeedback>;
+
+export type z_createBuyRequest_type = z.infer<typeof z_createBuyRequest>;

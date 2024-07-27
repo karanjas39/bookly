@@ -1,7 +1,7 @@
 {
   "name": "@singhjaskaran/bookly-common",
-  "version": "1.0.1",
-  "description": "This constains the types of the zod for bookly app for both frontend and backend",
+  "version": "1.0.2",
+  "description": "This contains the types of the zod for bookly app for both frontend and backend",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
