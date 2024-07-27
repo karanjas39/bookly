@@ -1,12 +1,16 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z } from "zod";
-import { z_createBuyRequest, z_id } from "@singhjaskaran/bookly-common";
+import {
+  z_createBuyRequest,
+  z_createBuyRequest_type,
+  z_id,
+  z_id_type,
+} from "@singhjaskaran/bookly-common";
 
 export async function CreateBuyRequest(c: Context) {
   const userId: string = c.get("userId");
-  const body: z.infer<typeof z_createBuyRequest> = await c.req.json();
+  const body: z_createBuyRequest_type = await c.req.json();
 
   const { success, data } = z_createBuyRequest.strip().safeParse(body);
 
@@ -62,7 +66,7 @@ export async function CreateBuyRequest(c: Context) {
 
 export async function AcceptBuyrequest(c: Context) {
   const userId: string = c.get("userId");
-  const body: z.infer<typeof z_id> = await c.req.json();
+  const body: z_id_type = await c.req.json();
 
   const { success, data } = z_id.strip().safeParse(body);
 

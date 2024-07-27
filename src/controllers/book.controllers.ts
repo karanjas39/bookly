@@ -3,14 +3,16 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import {
   z_id,
+  z_id_type,
   z_sellBook,
+  z_sellBook_type,
   z_updateSellBook,
+  z_updateSellBook_type,
 } from "@singhjaskaran/bookly-common";
-import { z } from "zod";
 
 export async function SellBook(c: Context) {
   const userId: string = c.get("userId");
-  const body: z.infer<typeof z_sellBook> = await c.req.json();
+  const body: z_sellBook_type = await c.req.json();
 
   const { success } = z_sellBook.safeParse(body);
 
@@ -56,7 +58,7 @@ export async function SellBook(c: Context) {
 
 export async function UpdateBook(c: Context) {
   const userId: string = c.get("userId");
-  const body: z.infer<typeof z_updateSellBook> = await c.req.json();
+  const body: z_updateSellBook_type = await c.req.json();
 
   const { success, data } = z_updateSellBook.strip().safeParse(body);
 
@@ -103,7 +105,7 @@ export async function UpdateBook(c: Context) {
 
 export async function DeleteBook(c: Context) {
   const userId: string = c.get("userId");
-  const body: z.infer<typeof z_id> = await c.req.json();
+  const body: z_id_type = await c.req.json();
 
   const { success, data } = z_id.strip().safeParse(body);
 

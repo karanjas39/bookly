@@ -1,8 +1,10 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z } from "zod";
-import { z_updatePassword } from "@singhjaskaran/bookly-common";
+import {
+  z_updatePassword,
+  z_updatePassword_type,
+} from "@singhjaskaran/bookly-common";
 import { compareSync, genSaltSync, hashSync } from "bcrypt-ts";
 
 export async function UserDetail(c: Context) {
@@ -44,7 +46,7 @@ export async function UserDetail(c: Context) {
 export async function UpdatePassword(c: Context) {
   try {
     const userId: string = c.get("userId");
-    const body: z.infer<typeof z_updatePassword> = await c.req.json();
+    const body: z_updatePassword_type = await c.req.json();
 
     const { success } = z_updatePassword.safeParse(body);
 

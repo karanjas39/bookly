@@ -1,12 +1,15 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { z_createFeedback, z_id } from "@singhjaskaran/bookly-common";
-import { z } from "zod";
+import {
+  z_createFeedback,
+  z_createFeedback_type,
+  z_id,
+} from "@singhjaskaran/bookly-common";
 
 export async function CreateFeedback(c: Context) {
   const givenBy: string = c.get("userId");
-  const body: z.infer<typeof z_createFeedback> = await c.req.json();
+  const body: z_createFeedback_type = await c.req.json();
 
   const { success, data } = z_createFeedback.strip().safeParse(body);
 
