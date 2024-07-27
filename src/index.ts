@@ -1,9 +1,12 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import Auth from "./routes/auth.route";
 import User from "./routes/user.route";
 import Book from "./routes/book.route";
 
 const app = new Hono();
+
+app.use("*", cors());
 
 app.route("/api/v1/auth", Auth);
 app.route("/api/v1/user", User);
