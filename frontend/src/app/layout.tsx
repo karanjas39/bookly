@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "@/contexts/ThemeProvider";
-import NavBar from "@/components/NavBar";
+import { ThemeProvider } from "@/components/theme-provider";
+import NavBar from "@/components/navbar";
 
 const fontStyle = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -22,7 +22,12 @@ export default function RootLayout({
       <body
         className={`${fontStyle.className} dark:bg-bgColor-dark dark:text-textColor-dark`}
       >
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <NavBar />
           {children}
         </ThemeProvider>

@@ -1,23 +1,23 @@
-import { Logo } from "@/ui/Logo";
+import Logo from "@/components/ui/logo";
+import { ModeToggle } from "@/components/ui/themeToggle";
 import { navLinks } from "@/utils/constants";
 import Link from "next/link";
-import ThemeSwitch from "./ThemeSwitcher";
-import { Button } from "@/ui/Button";
+import { Button } from "@/components/ui/button";
 
 export default function NavBar() {
   return (
-    <nav className="w-full flex items-center justify-between px-3 py-2">
+    <nav className="flex items-center px-4 py-2 justify-between">
       <Logo />
       <div className="flex items-center gap-3">
-        <ThemeSwitch />
-        {navLinks.map((link) => (
-          <Link href={link.href} className="text-base">
+        {navLinks.map((link, i) => (
+          <Link href={link.href} key={i}>
             {link.title}
           </Link>
         ))}
-        <Button fontSize="text-base" href="/signin">
-          Login
-        </Button>
+        <Link href="/login">
+          <Button variant="default">Login</Button>
+        </Link>
+        <ModeToggle />
       </div>
     </nav>
   );
