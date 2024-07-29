@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 
 export default function NavBar() {
   return (
-    <nav className="flex items-center px-4 py-2 justify-between">
+    <nav className="flex items-center px-4 py-2 justify-between relative top-0 left-0 right-0 z-50 w-full">
       <Logo />
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         {navLinks.map((link, i) => (
           <Link href={link.href} key={i}>
             {link.title}

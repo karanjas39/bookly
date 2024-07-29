@@ -2,11 +2,13 @@ export const websiteName = "Bookly";
 
 export const navLinks = [
   {
-    title: "Books",
+    title: "Explore books",
     href: "/books",
   },
   {
-    title: "Contact Us",
+    title: "Contact us",
     href: "/contact",
   },
 ];
+
+export const portfolioLink = "https://developerjaskaran.netlify.app/";
