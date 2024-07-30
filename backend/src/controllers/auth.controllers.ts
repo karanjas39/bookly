@@ -38,6 +38,7 @@ export async function Signup(c: Context) {
         email: body.email,
         password: hashedPassword,
         admin: false,
+        verified: true,
       },
     });
 
