@@ -7,6 +7,7 @@ import AccountInputBox from "@/components/ui/Account/AccountInputBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { useSignIn } from "@/utils/auth";
 import { z_singIn_type } from "@singhjaskaran/bookly-common";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -20,18 +21,16 @@ export default function SignIn() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  function handleSignInForm() {
-    const { email, password } = userCred;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!email || !password) {
-      return toast({ description: "All fields are required." });
+  async function handleSignInForm() {
+    setIsLoading(true);
+    const { loading, message, success } = await useSignIn(userCred);
+    setIsLoading(loading);
+    toast({ description: message });
+    if (success) {
+      setTimeout(() => {
+        router.push("/");
+      }, 2500);
     }
-
-    if (!emailRegex.test(email)) {
-      return toast({ description: "Please enter a valid email address." });
-    }
-    console.log(userCred);
   }
 
   return (
@@ -62,7 +61,7 @@ export default function SignIn() {
           }
         />
         <Button onClick={handleSignInForm}>
-          {isLoading ? "Creating Account..." : "Create Account"}
+          {isLoading ? "Signing In..." : "Sign In"}
         </Button>
       </AccountInputBox>
       <AccountFooter

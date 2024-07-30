@@ -7,14 +7,10 @@ import AccountInputBox from "@/components/ui/Account/AccountInputBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { BACKEND_URL, finalError } from "@/utils/constants";
-import { z_signUp_type } from "@singhjaskaran/bookly-common";
+import { useSignUp } from "@/utils/auth";
+import { signUptype } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-interface signUptype extends z_signUp_type {
-  confirmPassword: string;
-}
 
 export default function SignUp() {
   const [userDetail, setUserDetail] = useState<signUptype>({
@@ -28,54 +24,14 @@ export default function SignUp() {
   const router = useRouter();
 
   async function handleSignUpForm() {
-    const { name, email, password, confirmPassword: cPassword } = userDetail;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!name || !email || !password || !cPassword) {
-      return toast({ description: "All fields are required." });
-    }
-
-    if (!emailRegex.test(email)) {
-      return toast({ description: "Please enter a valid email address." });
-    }
-
-    if (password !== cPassword) {
-      return toast({ description: "Passwords do not match." });
-    }
-    if (password.length < 6) {
-      return toast({
-        description: "Passwords should be atleast 6 characters.",
-      });
-    }
-    const { confirmPassword, ...signupData } = userDetail;
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${BACKEND_URL}/auth/signup`, {
-        method: "POST",
-        body: JSON.stringify(signupData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-
-      setIsLoading(false);
-      if (data && data.success) {
-        setUserDetail({
-          name: "",
-          confirmPassword: "",
-          email: "",
-          password: "",
-        });
-        toast({ description: "New account is created successfuly." });
-        setTimeout(() => {
-          router.push("/signin");
-        }, 2500);
-      } else throw new Error();
-    } catch (error) {
-      toast({ description: finalError });
-    } finally {
-      setIsLoading(false);
+    setIsLoading(true);
+    const { loading, message, success } = await useSignUp(userDetail);
+    setIsLoading(loading);
+    toast({ description: message });
+    if (success) {
+      setTimeout(() => {
+        router.push("/signin");
+      }, 1500);
     }
   }
 
@@ -133,7 +89,7 @@ export default function SignUp() {
           }
         />
         <Button onClick={handleSignUpForm}>
-          {isLoading ? "Creating Account..." : "Create Account"}
+          {isLoading ? "Signing Up..." : "Sign Up"}
         </Button>
       </AccountInputBox>
       <AccountFooter
