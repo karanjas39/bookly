@@ -7,18 +7,18 @@ import Footer from "@/components/footer";
 export default function Home() {
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 items-center w-[80%] mx-auto mt-3">
+      <div className="grid grid-cols-1  lg:grid-cols-2 gap-4 items-center lg:w-[80%] w-[90%] mx-auto mt-8 lg:mt-3">
         <div className="flex flex-col gap-3">
-          <p className="text-7xl font-extrabold">
+          <p className="lg:text-7xl text-5xl font-extrabold">
             Affordable Textbooks, Shared Knowledge
           </p>
-          <p className="text-xl opacity-80">
+          <p className="lg:text-xl text-lg opacity-80">
             Bookly is the platform for university students to buy, sell, and
             share used textbooks and study materials at affordable prices.
           </p>
-          <Link href="/login">
+          <Link href="/books">
             <Button variant="default" className="w-min">
-              Join Bookly Today
+              Explore bookly's stock
             </Button>
           </Link>
         </div>

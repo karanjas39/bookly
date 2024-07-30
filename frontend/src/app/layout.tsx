@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/navBar";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontStyle = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         >
           <NavBar />
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
