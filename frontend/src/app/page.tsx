@@ -3,10 +3,12 @@ import Banner from "../../public/banner.jpg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/footer";
+import NavBar from "@/components/navBar";
 
 export default function Home() {
   return (
     <>
+      <NavBar />
       <div className="grid grid-cols-1  lg:grid-cols-2 gap-4 items-center lg:w-[80%] w-[90%] mx-auto mt-8 lg:mt-3">
         <div className="flex flex-col gap-3">
           <p className="lg:text-7xl text-5xl font-extrabold">
@@ -26,7 +28,7 @@ export default function Home() {
           src={Banner}
           objectFit="cover"
           alt="Banner of the Website"
-          className="rounded-md h-[90%] bg-blend-normal"
+          className="rounded-md h-[90%]"
         />
       </div>
       <Footer />
