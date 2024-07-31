@@ -1,6 +1,6 @@
 {
   "name": "@singhjaskaran/bookly-common",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "This contains the types of the zod for bookly app for both frontend and backend",
   "main": "dist/index.js",
   "scripts": {
