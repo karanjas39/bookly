@@ -7,29 +7,64 @@ import AccountInputBox from "@/components/ui/Account/AccountInputBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSignUp } from "@/utils/auth";
-import { signUptype } from "@/utils/types";
+import { authApi } from "@/store/api/authApi";
+import { finalError } from "@/utils/constants";
+import { signUpType } from "@/utils/types/types";
+import { z_signUp } from "@singhjaskaran/bookly-common";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignUp() {
-  const [userDetail, setUserDetail] = useState<signUptype>({
+  const [userDetail, setUserDetail] = useState<signUpType>({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [signUp, { isLoading }] = authApi.useSignUpMutation();
   const { toast } = useToast();
   const router = useRouter();
 
   async function handleSignUpForm() {
-    setIsLoading(true);
-    const { loading, message, success } = await useSignUp(userDetail);
-    setIsLoading(loading);
-    toast({ description: message });
-    if (success) {
-      router.push("/signin");
+    const { name, confirmPassword: cPassword, email, password } = userDetail;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email || !password) {
+      return toast({ description: "All fields are required." });
+    }
+
+    if (!emailRegex.test(email)) {
+      return toast({ description: "Please enter a valid email address." });
+    }
+
+    if (password !== cPassword) {
+      return toast({ description: "Passwords do not match." });
+    }
+    if (password.length < 6) {
+      return toast({
+        description: "Passwords should be atleast 6 characters.",
+      });
+    }
+
+    const { success, data: userSignUpData } = z_signUp.safeParse({
+      email,
+      password,
+      name,
+    });
+    if (!success) {
+      return toast({ description: "Provide valid inputs to continue." });
+    }
+
+    try {
+      const response = await signUp(userSignUpData).unwrap();
+
+      if (response && response.success) {
+        toast({ description: "New account is created successfuly." });
+        router.push("/signin");
+        return;
+      } else throw new Error();
+    } catch (error) {
+      toast({ description: finalError });
     }
   }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/components/auth-provider";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -10,17 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import Loader from "@/components/ui/Loader";
+import { userApi } from "@/store/api/userApi";
 import { modifyDate } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Profile() {
-  const { user } = useAuth();
   const router = useRouter();
+  const { data, isLoading } = userApi.useFetchUserQuery();
 
-  useEffect(() => {
-    if (!user.name) return router.push("/signin");
-  }, []);
+  if (isLoading && !data) return <Loader />;
 
   return (
     <Card>
@@ -33,22 +31,28 @@ export default function Profile() {
         <div className="flex flex-col gap-2 mt-2">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">Name</p>
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">
+              {data?.user.name}
+            </p>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">Email</p>
-            <p className="text-sm font-medium leading-none">{user.email}</p>
+            <p className="text-sm font-medium leading-none">
+              {data?.user.email}
+            </p>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">Verified</p>
             <p className="text-sm font-medium leading-none">
-              <Badge variant="outline">{user.verified ? "Yes" : "No"}</Badge>
+              <Badge variant="outline">
+                {data?.user.verified ? "Yes" : "No"}
+              </Badge>
             </p>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">Account Created</p>
             <p className="text-sm font-medium leading-none">
-              {modifyDate(user.createdAt)}
+              {modifyDate(data?.user.createdAt)}
             </p>
           </div>
         </div>

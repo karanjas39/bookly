@@ -1,5 +1,5 @@
-export function modifyDate(isoString: string): string {
-  const date = new Date(isoString);
+export function modifyDate(isoString: string | undefined): string {
+  const date = new Date(isoString || "");
 
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",

@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/components/auth-provider";
 import AccountBox from "@/components/ui/Account/AccountBox";
 import AccountFooter from "@/components/ui/Account/AccountFooter";
 import AccountHeader from "@/components/ui/Account/accountHeader";
@@ -8,10 +7,13 @@ import AccountInputBox from "@/components/ui/Account/AccountInputBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSignIn } from "@/utils/auth";
-import { z_singIn_type } from "@singhjaskaran/bookly-common";
+import { authApi } from "@/store/api/authApi";
+import { setToken } from "@/store/slices/authSlice";
+import { finalError } from "@/utils/constants";
+import { z_singIn, z_singIn_type } from "@singhjaskaran/bookly-common";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function SignIn() {
   const [userCred, setUserCred] = useState<z_singIn_type>({
@@ -20,19 +22,38 @@ export default function SignIn() {
   });
   const router = useRouter();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setUser, setAuthorized } = useAuth();
+  const [signIn, { isLoading }] = authApi.useSignInMutation();
+  const dispatch = useDispatch();
 
   async function handleSignInForm() {
-    setIsLoading(true);
-    const { loading, message, success, data } = await useSignIn(userCred);
-    setIsLoading(loading);
-    toast({ description: message });
-    if (success) {
-      setUser(data.user);
-      setAuthorized(true);
-      router.replace("/dashboard");
-      return;
+    const { email, password } = userCred;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email || !password) {
+      return toast({ description: "All fields are required." });
+    }
+
+    if (!emailRegex.test(email)) {
+      return toast({ description: "Please enter a valid email address." });
+    }
+
+    const { success, data: userSignInData } = z_singIn.safeParse({
+      email,
+      password,
+    });
+    if (!success) {
+      return toast({ description: "Provide valid inputs to continue." });
+    }
+
+    try {
+      const response = await signIn(userSignInData).unwrap();
+      if (response && response.success) {
+        toast({ description: "You are successfuly logged in." });
+        dispatch(setToken(response.token));
+        return router.push("/dashboard");
+      } else throw new Error();
+    } catch (error) {
+      toast({ description: finalError });
     }
   }
 

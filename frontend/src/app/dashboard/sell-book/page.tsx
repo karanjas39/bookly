@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/components/auth-provider";
 import {
   Card,
   CardContent,
@@ -24,12 +23,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function AddBook() {
-  const { genres } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!genres) return router.push("/signin");
-  }, []);
+  // useEffect(() => {
+  //   if (!genres) return router.push("/signin");
+  // }, []);
 
   return (
     <Card>
@@ -61,14 +59,14 @@ export default function AddBook() {
                 <SelectTrigger>
                   <SelectValue placeholder="Select book genre" />
                 </SelectTrigger>
-                <SelectContent id="genre">
+                {/* <SelectContent id="genre">
                   {genres.length &&
                     genres.map((genre) => (
                       <SelectItem key={genre.id} value={genre.id}>
                         {genre.name}
                       </SelectItem>
                     ))}
-                </SelectContent>
+                </SelectContent> */}
               </Select>
             </div>
 

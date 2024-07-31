@@ -47,7 +47,6 @@ export async function Signup(c: Context) {
     return c.json({
       success: true,
       status: 200,
-      newUser,
     });
   } catch (error) {
     return c.json({

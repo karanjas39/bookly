@@ -38,7 +38,7 @@ export default function DashboardNavBar() {
 
   return (
     <div className="flex flex-col px-4 py-3 bg-secondary">
-      <DashboardNavItems>
+      <DashboardNavItems gap="4">
         {open && (
           <div className="hidden lg:block">
             <Logo />
@@ -49,7 +49,7 @@ export default function DashboardNavBar() {
           className="icon-size"
         />
       </DashboardNavItems>
-      <div className="mt-12 flex flex-col gap-3 h-full">
+      <div className="mt-12 flex flex-col gap-5 h-full">
         <DashboardNavItems handleOnClick={() => router.push("/dashboard")}>
           <HomeIcon className="icon-size" />
           <DashboardNavPara open={open}>Dashboard</DashboardNavPara>
@@ -77,13 +77,13 @@ export default function DashboardNavBar() {
           <BellIcon className="icon-size" />
           <DashboardNavPara open={open}>Book Requests</DashboardNavPara>
         </DashboardNavItems>
+        <DashboardNavItems
+          handleOnClick={() => router.push("/dashboard/settings")}
+        >
+          <GearIcon className="icon-size" />
+          <DashboardNavPara open={open}>Settings</DashboardNavPara>
+        </DashboardNavItems>
       </div>
-      <DashboardNavItems
-        handleOnClick={() => router.push("/dashboard/settings")}
-      >
-        <GearIcon className="icon-size" />
-        <DashboardNavPara open={open}>Settings</DashboardNavPara>
-      </DashboardNavItems>
     </div>
   );
 }
