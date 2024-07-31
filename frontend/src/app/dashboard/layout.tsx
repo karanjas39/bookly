@@ -1,4 +1,5 @@
 import DashboardNavBar from "@/components/dashboardNavBar";
+import Footer from "@/components/footer";
 import DashboardNavTop from "@/components/ui/Dashboard/DashboardNavTop";
 
 export default function DashboardLayout({
@@ -11,7 +12,8 @@ export default function DashboardLayout({
       <DashboardNavBar />
       <div className="flex flex-col w-full">
         <DashboardNavTop />
-        <div className="h-full">{children}</div>
+        <div className="h-full px-5 pt-5">{children}</div>
+        <Footer />
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ type userType = {
   name: string;
   email: string;
   verified: boolean;
-  createdAt: Date | null;
+  createdAt: string;
 };
 
 const AuthContext = createContext<AuthType>({
@@ -30,7 +30,7 @@ const AuthContext = createContext<AuthType>({
     name: "",
     email: "",
     verified: false,
-    createdAt: null,
+    createdAt: "",
   },
   setUser: () => {},
 });
@@ -41,7 +41,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     name: "",
     email: "",
     verified: false,
-    createdAt: null,
+    createdAt: "",
   });
 
   return (

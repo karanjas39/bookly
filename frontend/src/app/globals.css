@@ -73,3 +73,8 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+.icon-size {
+  width: 20px;
+  height: 20px;
+}

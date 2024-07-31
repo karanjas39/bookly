@@ -3,14 +3,16 @@
 import { useState, type ReactNode } from "react";
 import DashboardNavItems from "./ui/Dashboard/DashboardNavItems";
 import Logo from "./ui/logo";
-import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
-import PersonTwoToneIcon from "@mui/icons-material/PersonTwoTone";
-import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
-import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import ImportContactsTwoToneIcon from "@mui/icons-material/ImportContactsTwoTone";
-import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
-import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import { useRouter } from "next/navigation";
+import {
+  BellIcon,
+  GearIcon,
+  HamburgerMenuIcon,
+  HomeIcon,
+  MagnifyingGlassIcon,
+  PersonIcon,
+  PlusIcon,
+} from "@radix-ui/react-icons";
 
 function DashboardNavPara({
   children,
@@ -36,49 +38,50 @@ export default function DashboardNavBar() {
 
   return (
     <div className="flex flex-col px-4 py-3 bg-secondary">
-      <DashboardNavItems item="end">
+      <DashboardNavItems>
         {open && (
           <div className="hidden lg:block">
             <Logo />
           </div>
         )}
-        <MenuTwoToneIcon
-          fontSize="large"
+        <HamburgerMenuIcon
           onClick={() => setOpen((prev) => !prev)}
+          className="icon-size"
         />
       </DashboardNavItems>
       <div className="mt-12 flex flex-col gap-3 justify-center h-full">
-        <DashboardNavItems handleOnClick={() => router.push("/")}>
-          <HomeTwoToneIcon titleAccess="Home" />
-          <DashboardNavPara open={open}>Home</DashboardNavPara>
+        <DashboardNavItems handleOnClick={() => router.push("/dashboard")}>
+          <HomeIcon className="icon-size" />
+          <DashboardNavPara open={open}>Dashboard</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
           handleOnClick={() => router.push("/dashboard/profile")}
         >
-          <PersonTwoToneIcon titleAccess="Profile" />
+          <PersonIcon className="icon-size" />
           <DashboardNavPara open={open}>Profile</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
           handleOnClick={() => router.push("/dashboard/add-book")}
         >
-          <AddTwoToneIcon titleAccess="Add Books" />
+          <PlusIcon className="icon-size" />
           <DashboardNavPara open={open}>Add Books</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems>
-          <SearchTwoToneIcon titleAccess="Explore Books" />
+          <MagnifyingGlassIcon className="icon-size" />
+
           <DashboardNavPara open={open}>Explore Books</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
           handleOnClick={() => router.push("/dashboard/book-requests")}
         >
-          <ImportContactsTwoToneIcon titleAccess="Book Requests" />
+          <BellIcon className="icon-size" />
           <DashboardNavPara open={open}>Book Requests</DashboardNavPara>
         </DashboardNavItems>
       </div>
       <DashboardNavItems
         handleOnClick={() => router.push("/dashboard/settings")}
       >
-        <SettingsTwoToneIcon titleAccess="Settings" />
+        <GearIcon className="icon-size" />
         <DashboardNavPara open={open}>Settings</DashboardNavPara>
       </DashboardNavItems>
     </div>

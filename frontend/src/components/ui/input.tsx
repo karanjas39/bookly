@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -12,9 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-2">
-        <label htmlFor={props.tag} className="text-sm pl-1 font-bold">
-          {props.label}
-        </label>
+        <Label htmlFor={props.tag}>{props.label}</Label>
         <input
           type={type}
           className={cn(
