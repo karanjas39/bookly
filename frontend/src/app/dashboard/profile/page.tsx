@@ -12,12 +12,15 @@ import {
 import { Label } from "@/components/ui/label";
 import { modifyDate } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Profile() {
   const { user } = useAuth();
   const router = useRouter();
 
-  if (!user) router.push("/signin");
+  useEffect(() => {
+    if (!user.name) return router.push("/signin");
+  }, []);
 
   return (
     <Card>

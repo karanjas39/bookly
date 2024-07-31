@@ -1,17 +1,20 @@
 "use client";
 
+import { getAllGneres } from "@/utils/genre";
 import {
   createContext,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
 type AuthType = {
   authorized: boolean;
   user: userType;
+  genres: genretype;
   setUser: Dispatch<SetStateAction<userType>>;
   setAuthorized: Dispatch<SetStateAction<boolean>>;
 };
@@ -23,15 +26,21 @@ type userType = {
   createdAt: string;
 };
 
+type genretype = {
+  id: string;
+  name: string;
+}[];
+
 const AuthContext = createContext<AuthType>({
   authorized: false,
-  setAuthorized: () => {},
   user: {
     name: "",
     email: "",
     verified: false,
     createdAt: "",
   },
+  genres: [],
+  setAuthorized: () => {},
   setUser: () => {},
 });
 
@@ -43,9 +52,23 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     verified: false,
     createdAt: "",
   });
+  const [genre, setGenre] = useState<genretype>([]);
+
+  useEffect(() => {
+    if (!genre.length) {
+      (async () => {
+        const { success, data } = await getAllGneres();
+        if (success && data.allGenres) {
+          setGenre(data.allGenres);
+        }
+      })();
+    }
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ authorized, setAuthorized, user, setUser }}>
+    <AuthContext.Provider
+      value={{ authorized, setAuthorized, user, setUser, genres: genre }}
+    >
       {children}
     </AuthContext.Provider>
   );

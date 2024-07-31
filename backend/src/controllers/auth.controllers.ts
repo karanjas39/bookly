@@ -80,6 +80,15 @@ export async function Signin(c: Context) {
       where: {
         email: body.email,
       },
+      select: {
+        name: true,
+        email: true,
+        verified: true,
+        createdAt: true,
+        id: true,
+        admin: true,
+        password: true,
+      },
     });
 
     if (!isUserExist)
@@ -103,10 +112,13 @@ export async function Signin(c: Context) {
       c.env.JWT_SECRET
     );
 
+    const { id, password, admin, ...user } = isUserExist;
+
     return c.json({
       success: true,
       status: 200,
       token,
+      user,
     });
   } catch (error) {
     return c.json({

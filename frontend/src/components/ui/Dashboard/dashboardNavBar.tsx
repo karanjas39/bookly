@@ -49,7 +49,7 @@ export default function DashboardNavBar() {
           className="icon-size"
         />
       </DashboardNavItems>
-      <div className="mt-12 flex flex-col gap-3 justify-center h-full">
+      <div className="mt-12 flex flex-col gap-3 h-full">
         <DashboardNavItems handleOnClick={() => router.push("/dashboard")}>
           <HomeIcon className="icon-size" />
           <DashboardNavPara open={open}>Dashboard</DashboardNavPara>

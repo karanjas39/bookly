@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/components/auth-provider";
 import AccountBox from "@/components/ui/Account/AccountBox";
 import AccountFooter from "@/components/ui/Account/AccountFooter";
 import AccountHeader from "@/components/ui/Account/accountHeader";
@@ -20,14 +21,18 @@ export default function SignIn() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setUser, setAuthorized } = useAuth();
 
   async function handleSignInForm() {
     setIsLoading(true);
-    const { loading, message, success } = await useSignIn(userCred);
+    const { loading, message, success, data } = await useSignIn(userCred);
     setIsLoading(loading);
     toast({ description: message });
     if (success) {
+      setUser(data.user);
+      setAuthorized(true);
       router.replace("/dashboard");
+      return;
     }
   }
 
