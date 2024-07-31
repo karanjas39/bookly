@@ -27,7 +27,7 @@ export default function SignIn() {
     setIsLoading(loading);
     toast({ description: message });
     if (success) {
-      router.push("/dashboard");
+      router.replace("/dashboard/profile");
     }
   }
 

@@ -1,17 +1,18 @@
-import { type ReactNode } from "react";
+import { type MouseEventHandler, type ReactNode } from "react";
 
 export default function DashboardNavItems({
   children,
   item,
-  gap,
+  handleOnClick,
 }: {
   children: ReactNode;
   item?: "center" | "start" | "end";
-  gap?: number;
+  handleOnClick?: MouseEventHandler<HTMLDivElement>;
 }) {
   return (
     <div
-      className={`flex items-${item ? item : "center"} gap-${gap ? gap : 6}`}
+      className={`flex items-${item ? item : "center"}  gap-4 cursor-pointer`}
+      onClick={handleOnClick}
     >
       {children}
     </div>
