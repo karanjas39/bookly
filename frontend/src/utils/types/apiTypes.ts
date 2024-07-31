@@ -13,3 +13,7 @@ export interface signInResponseType extends generalResponseType {
 export interface getUserResponseType extends generalResponseType {
   user: userType;
 }
+
+export interface getGenreType extends generalResponseType {
+  allGenres: { id: string; name: string }[];
+}

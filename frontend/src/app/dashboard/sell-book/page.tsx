@@ -19,15 +19,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { genreApi } from "@/store/api/genreApi";
+import Loader from "@/components/ui/Loader";
 
 export default function AddBook() {
-  const router = useRouter();
+  const { data, isLoading } = genreApi.useGetGenresQuery();
 
-  // useEffect(() => {
-  //   if (!genres) return router.push("/signin");
-  // }, []);
+  if (isLoading) return <Loader />;
 
   return (
     <Card>
@@ -59,14 +57,14 @@ export default function AddBook() {
                 <SelectTrigger>
                   <SelectValue placeholder="Select book genre" />
                 </SelectTrigger>
-                {/* <SelectContent id="genre">
-                  {genres.length &&
-                    genres.map((genre) => (
+                <SelectContent id="genre">
+                  {data?.allGenres.length &&
+                    data.allGenres.map((genre) => (
                       <SelectItem key={genre.id} value={genre.id}>
                         {genre.name}
                       </SelectItem>
                     ))}
-                </SelectContent> */}
+                </SelectContent>
               </Select>
             </div>
 

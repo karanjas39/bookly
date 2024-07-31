@@ -12,10 +12,8 @@ import { Label } from "@/components/ui/label";
 import Loader from "@/components/ui/Loader";
 import { userApi } from "@/store/api/userApi";
 import { modifyDate } from "@/utils/helpers";
-import { useRouter } from "next/navigation";
 
 export default function Profile() {
-  const router = useRouter();
   const { data, isLoading } = userApi.useFetchUserQuery();
 
   if (isLoading && !data) return <Loader />;
