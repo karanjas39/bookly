@@ -1,4 +1,4 @@
-import DashboardNavBar from "@/components/dashboardNavBar";
+import DashboardNavBar from "@/components/ui/Dashboard/dashboardNavBar";
 import Footer from "@/components/footer";
 import DashboardNavTop from "@/components/ui/Dashboard/DashboardNavTop";
 

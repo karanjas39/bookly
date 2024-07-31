@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import DashboardNavItems from "./ui/Dashboard/DashboardNavItems";
-import Logo from "./ui/logo";
+import DashboardNavItems from "./DashboardNavItems";
+import Logo from "../logo";
 import { useRouter } from "next/navigation";
 import {
   BellIcon,
@@ -61,10 +61,10 @@ export default function DashboardNavBar() {
           <DashboardNavPara open={open}>Profile</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
-          handleOnClick={() => router.push("/dashboard/add-book")}
+          handleOnClick={() => router.push("/dashboard/sell-book")}
         >
           <PlusIcon className="icon-size" />
-          <DashboardNavPara open={open}>Add Books</DashboardNavPara>
+          <DashboardNavPara open={open}>Sell Book</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems>
           <MagnifyingGlassIcon className="icon-size" />
