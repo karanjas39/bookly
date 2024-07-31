@@ -6,6 +6,7 @@ import {
 import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
 import { UserAllFeedbacks } from "../controllers/feedback.controllers";
 import { AllBuyRequest } from "../controllers/bookRequest.controllers";
+import { AllGenres } from "../controllers/genre.controllers";
 
 const User = new Hono<{
   Bindings: {
@@ -36,5 +37,8 @@ User.get(
   isverifiedMiddleware,
   AllBuyRequest
 );
+
+// GENRE
+User.get("/genre/all", AllGenres);
 
 export default User;
