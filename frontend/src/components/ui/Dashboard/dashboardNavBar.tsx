@@ -39,7 +39,7 @@ export default function DashboardNavBar() {
 
   return (
     <div className="flex flex-col px-4 py-3 bg-secondary">
-      <DashboardNavItems gap="4">
+      <DashboardNavItems>
         {open && (
           <div className="hidden lg:block">
             <Logo />

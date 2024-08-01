@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,10 +12,10 @@ import Loader from "@/components/ui/Loader";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
+  TableCaption,
   TableRow,
 } from "@/components/ui/table";
 import { bookApi } from "@/store/api/bookApi";
@@ -36,38 +36,34 @@ export default function ListedBooks() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table className="max-h-[100px] overflow-scroll">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[200px]">Name</TableHead>
-              <TableHead>Listed On</TableHead>
-              <TableHead>Price (INR)</TableHead>
-              <TableHead className="text-right">Listed</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.books &&
-              data.books.map((book) => (
-                <TableRow key={book.id}>
-                  <TableCell className="font-medium">{book.name}</TableCell>
-                  <TableCell>{modifyDate(book.createdAt)}</TableCell>
-                  <TableCell>
-                    {book.price ? (
-                      <Badge variant="outline">{book.price}</Badge>
-                    ) : (
-                      <Badge variant="outline">Free</Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {book.listed ? (
-                      <Badge>Yes</Badge>
-                    ) : (
-                      <Badge variant="destructive">No</Badge>
-                    )}
-                  </TableCell>
+        <Table className="overflow-x-auto">
+          {data?.books && (
+            <>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[250px]">Name</TableHead>
+                  <TableHead className="text-center">Listed On</TableHead>
                 </TableRow>
-              ))}
-          </TableBody>
+              </TableHeader>
+              <TableBody>
+                {data.books?.length &&
+                  data.books.map((book) => (
+                    <TableRow key={book.id}>
+                      <TableCell className="font-medium">{book.name}</TableCell>
+                      <TableCell className="text-center">
+                        {modifyDate(book.createdAt)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button>More Details</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </>
+          )}
+          {!data?.books?.length && (
+            <TableCaption>You have not listed any book for sale.</TableCaption>
+          )}
         </Table>
       </CardContent>
     </Card>

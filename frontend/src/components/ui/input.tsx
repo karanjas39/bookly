@@ -7,13 +7,19 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   tag: string;
+  comment?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-2">
-        <Label htmlFor={props.tag}>{props.label}</Label>
+        <Label htmlFor={props.tag}>
+          {props.label}{" "}
+          <span className="text-xs text-muted-foreground">
+            {props.comment && `(${props.comment})`}
+          </span>
+        </Label>
         <input
           type={type}
           className={cn(

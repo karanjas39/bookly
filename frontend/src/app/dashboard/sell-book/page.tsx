@@ -99,7 +99,7 @@ export default function AddBook() {
                 Description{" "}
                 <span className="text-xs text-muted-foreground">
                   (optional)
-                </span>{" "}
+                </span>
               </Label>
               <Textarea
                 id="description"
@@ -126,7 +126,7 @@ export default function AddBook() {
                   <SelectValue placeholder="Select book genre" />
                 </SelectTrigger>
                 <SelectContent id="genre">
-                  {data?.allGenres.length &&
+                  {data?.allGenres?.length &&
                     data.allGenres.map((genre) => (
                       <SelectItem key={genre.id} value={genre.id}>
                         {genre.name}
@@ -151,6 +151,7 @@ export default function AddBook() {
             <Input
               tag="price"
               label="Price"
+              comment="In INR only"
               type="number"
               placeholder="Enter book price (in INR)"
               min={0}
