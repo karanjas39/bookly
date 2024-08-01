@@ -9,6 +9,7 @@ import {
   GearIcon,
   HamburgerMenuIcon,
   HomeIcon,
+  ListBulletIcon,
   MagnifyingGlassIcon,
   PersonIcon,
   PlusIcon,
@@ -65,6 +66,12 @@ export default function DashboardNavBar() {
         >
           <PlusIcon className="icon-size" />
           <DashboardNavPara open={open}>Sell Book</DashboardNavPara>
+        </DashboardNavItems>
+        <DashboardNavItems
+          handleOnClick={() => router.push("/dashboard/listed-books")}
+        >
+          <ListBulletIcon className="icon-size" />
+          <DashboardNavPara open={open}>Listed Books</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems>
           <MagnifyingGlassIcon className="icon-size" />

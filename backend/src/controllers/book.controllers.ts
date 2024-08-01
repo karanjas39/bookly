@@ -45,7 +45,6 @@ export async function SellBook(c: Context) {
     return c.json({
       success: true,
       status: 200,
-      newBook,
     });
   } catch (error) {
     return c.json({
@@ -237,6 +236,43 @@ export async function GetBooks(c: Context) {
       success: false,
       status: 404,
       message: "[Error] while fetching this book.",
+    });
+  }
+}
+
+export async function GetMyBooks(c: Context) {
+  const userId: string = c.get("userId");
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const books = await prisma.book.findMany({
+      where: {
+        sellerId: userId,
+      },
+      select: {
+        name: true,
+        createdAt: true,
+        price: true,
+        listed: true,
+        id: true,
+      },
+    });
+
+    if (!books.length) throw new Error();
+
+    return c.json({
+      success: true,
+      status: 200,
+      books,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while fetching your books.",
     });
   }
 }
