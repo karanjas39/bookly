@@ -3,7 +3,7 @@ import { generalResponseType, getMyBooksType } from "@/utils/types/apiTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { z_sellBook_type } from "@singhjaskaran/bookly-common";
 import { RootState } from "@/store/index";
-import { LISTED_BOOKS_TAG, tagTypes } from "@/store/api/tags";
+import { tagTypes, LISTED_BOOKS_TAG } from "@/store/api/tags";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
@@ -11,6 +11,7 @@ export const bookApi = createApi({
     baseUrl: BACKEND_URL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
+      console.log(token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

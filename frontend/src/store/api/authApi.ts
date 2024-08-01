@@ -5,7 +5,7 @@ import {
 import { BACKEND_URL } from "@/utils/constants";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { z_signUp_type, z_singIn_type } from "@singhjaskaran/bookly-common";
-import { LISTED_BOOKS_TAG, tagTypes, USER_TAG } from "@/store/api/tags";
+import { tagTypes, LISTED_BOOKS_TAG, USER_TAG } from "@/store/api/tags";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -18,7 +18,6 @@ export const authApi = createApi({
         method: "POST",
         body: credentials,
       }),
-      invalidatesTags: [LISTED_BOOKS_TAG, USER_TAG],
     }),
     signUp: builder.mutation<generalResponseType, z_signUp_type>({
       query: (credentials) => ({

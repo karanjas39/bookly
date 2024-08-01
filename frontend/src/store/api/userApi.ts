@@ -20,7 +20,6 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     fetchUser: builder.query<getUserResponseType, void>({
       query: () => "user/detail",
-      providesTags: [USER_TAG],
     }),
   }),
 });
