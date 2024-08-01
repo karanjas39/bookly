@@ -205,6 +205,62 @@ export async function GetBook(c: Context) {
   }
 }
 
+export async function GetMyBook(c: Context) {
+  const userId: string = c.get("userId");
+  const params = c.req.param();
+  const { success, data } = z_id.strip().safeParse(params);
+
+  if (!success) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "Invalid inputs are passed.",
+    });
+  }
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const book = await prisma.book.findUnique({
+      where: {
+        id: data.id,
+        sellerId: userId,
+      },
+      select: {
+        name: true,
+        description: true,
+        author: true,
+        createdAt: true,
+        price: true,
+        feedbacks: true,
+        genre: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+
+    if (!book) throw new Error();
+
+    return c.json({
+      success: true,
+      status: 200,
+      book,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while fetching this book.",
+      error,
+    });
+  }
+}
+
 export async function GetBooks(c: Context) {
   try {
     const prisma = new PrismaClient({
@@ -251,12 +307,12 @@ export async function GetMyBooks(c: Context) {
     const books = await prisma.book.findMany({
       where: {
         sellerId: userId,
+        sold: false,
       },
       select: {
         name: true,
         createdAt: true,
         price: true,
-        listed: true,
         id: true,
       },
     });

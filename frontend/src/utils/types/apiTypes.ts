@@ -19,11 +19,25 @@ export interface getGenreType extends generalResponseType {
 }
 
 export interface getMyBooksType extends generalResponseType {
-  books: {
-    name: string;
-    createdAt: string;
-    price: number;
-    listed: boolean;
-    id: string;
-  }[];
+  books: BookType[];
+}
+
+export interface BookType {
+  name: string;
+  createdAt: string;
+  listed: boolean;
+  id: string;
+}
+
+export interface getMyBookType extends generalResponseType {
+  book: {
+    description: true;
+    author: true;
+    price: true;
+    feedbacks: true;
+    genre: {
+      id: true;
+      name: true;
+    };
+  } & BookType;
 }

@@ -7,7 +7,7 @@ export default function Footer() {
       <p>&copy; {currentYear} Bookly. All rights reserved.</p>
       <p>
         Developed and designed by{" "}
-        <a href={portfolioLink} className="font-bold">
+        <a href={portfolioLink} target="_blank" className="font-bold">
           Jaskaran Singh
         </a>
       </p>

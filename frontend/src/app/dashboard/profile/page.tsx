@@ -24,37 +24,34 @@ export default function Profile() {
         <CardTitle>Profile</CardTitle>
         <CardDescription>Manage your profile details</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Label>Personal Information</Label>
-        <div className="flex flex-col gap-2 mt-2">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Name</p>
-            <p className="text-sm font-medium leading-none">
-              {data?.user.name}
-            </p>
+      {data && (
+        <CardContent>
+          {/* <Label>Personal Information</Label> */}
+          <div className="flex flex-col gap-2">
+            <ProfileBox name="Name" data={data.user.name} />
+            <ProfileBox name="Email" data={data.user.email} />
+            <ProfileBox name="Verified" data={data?.user.verified} />
+            <ProfileBox name="Account Created" data={data?.user.createdAt} />
           </div>
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Email</p>
-            <p className="text-sm font-medium leading-none">
-              {data?.user.email}
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Verified</p>
-            <p className="text-sm font-medium leading-none">
-              <Badge variant="outline">
-                {data?.user.verified ? "Yes" : "No"}
-              </Badge>
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Account Created</p>
-            <p className="text-sm font-medium leading-none">
-              {modifyDate(data?.user.createdAt)}
-            </p>
-          </div>
-        </div>
-      </CardContent>
+        </CardContent>
+      )}
     </Card>
+  );
+}
+
+function ProfileBox({ name, data }: { name: string; data: string | boolean }) {
+  return (
+    <div className="flex text-sm  lg:flex-row flex-col lg:justify-between">
+      <p className="text-muted-foreground">{name}</p>
+      {name === "Verified" ? (
+        <div className="font-medium leading-none">
+          <Badge variant="outline">{data ? "Yes" : "No"}</Badge>
+        </div>
+      ) : (
+        <div className="font-medium leading-none">
+          {name !== "Account Created" ? data : modifyDate(data)}
+        </div>
+      )}
+    </div>
   );
 }

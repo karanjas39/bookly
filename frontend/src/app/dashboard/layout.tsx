@@ -1,4 +1,4 @@
-import DashboardNavBar from "@/components/ui/Dashboard/dashboardNavBar";
+import DashboardNavBar from "@/components/ui/Dashboard/DashboardNavBar";
 import Footer from "@/components/footer";
 import DashboardNavTop from "@/components/ui/Dashboard/DashboardNavTop";
 import ProtectedProvider from "@/components/ProtectedProvider";

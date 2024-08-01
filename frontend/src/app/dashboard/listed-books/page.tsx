@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ListedBookDetail from "@/components/ui/Dashboard/Listed Books/ListedBookDetail";
 import Loader from "@/components/ui/Loader";
 import {
   Table,
@@ -18,6 +18,7 @@ import {
   TableCaption,
   TableRow,
 } from "@/components/ui/table";
+
 import { bookApi } from "@/store/api/bookApi";
 import { modifyDate } from "@/utils/helpers";
 
@@ -42,7 +43,9 @@ export default function ListedBooks() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[250px]">Name</TableHead>
-                  <TableHead className="text-center">Listed On</TableHead>
+                  <TableHead className="text-center hidden lg:block">
+                    Listed On
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -50,11 +53,11 @@ export default function ListedBooks() {
                   data.books.map((book) => (
                     <TableRow key={book.id}>
                       <TableCell className="font-medium">{book.name}</TableCell>
-                      <TableCell className="text-center">
+                      <TableCell className="text-center hidden lg:block">
                         {modifyDate(book.createdAt)}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button>More Details</Button>
+                        <ListedBookDetail id={book.id} />
                       </TableCell>
                     </TableRow>
                   ))}

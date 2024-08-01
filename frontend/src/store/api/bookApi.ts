@@ -1,5 +1,9 @@
 import { BACKEND_URL } from "@/utils/constants";
-import { generalResponseType, getMyBooksType } from "@/utils/types/apiTypes";
+import {
+  generalResponseType,
+  getMyBooksType,
+  getMyBookType,
+} from "@/utils/types/apiTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { z_sellBook_type } from "@singhjaskaran/bookly-common";
 import { RootState } from "@/store/index";
@@ -26,6 +30,12 @@ export const bookApi = createApi({
         body: bookDetails,
       }),
       invalidatesTags: [LISTED_BOOKS_TAG],
+    }),
+    getBookById: builder.query<getMyBookType, { bookId: string }>({
+      query: (params) => {
+        const { bookId } = params;
+        return `user/book/single/${bookId}`;
+      },
     }),
     myBooks: builder.query<getMyBooksType, void>({
       query: () => "user/book/all",

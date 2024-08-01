@@ -7,7 +7,7 @@ import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
 import { UserAllFeedbacks } from "../controllers/feedback.controllers";
 import { AllBuyRequest } from "../controllers/bookRequest.controllers";
 import { AllGenres } from "../controllers/genre.controllers";
-import { GetMyBooks } from "../controllers/book.controllers";
+import { GetMyBook, GetMyBooks } from "../controllers/book.controllers";
 
 const User = new Hono<{
   Bindings: {
@@ -25,6 +25,7 @@ User.put("/password/update", authMiddleware, UpdatePassword);
 
 // BOOK
 User.get("/book/all", authMiddleware, isverifiedMiddleware, GetMyBooks);
+User.get("/book/single/:id", authMiddleware, isverifiedMiddleware, GetMyBook);
 
 // FEEDBACK
 User.get(
