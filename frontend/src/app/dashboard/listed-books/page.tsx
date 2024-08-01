@@ -25,7 +25,6 @@ export default function ListedBooks() {
   const { data, isLoading } = bookApi.useMyBooksQuery();
 
   if (isLoading) return <Loader />;
-  console.log(data);
 
   return (
     // Add className="h-[50px] overflow-scroll" to content to scroll
