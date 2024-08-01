@@ -30,7 +30,10 @@ export default function Profile() {
           <div className="flex flex-col gap-2">
             <ProfileBox name="Name" data={data.user.name} />
             <ProfileBox name="Email" data={data.user.email} />
-            <ProfileBox name="Verified" data={data?.user.verified} />
+            <ProfileBox
+              name="Verified"
+              data={data.user.verified ? "Yes" : "No"}
+            />
             <ProfileBox name="Account Created" data={data?.user.createdAt} />
           </div>
         </CardContent>
@@ -39,13 +42,13 @@ export default function Profile() {
   );
 }
 
-function ProfileBox({ name, data }: { name: string; data: string | boolean }) {
+function ProfileBox({ name, data }: { name: string; data: string }) {
   return (
     <div className="flex text-sm  lg:flex-row flex-col lg:justify-between">
       <p className="text-muted-foreground">{name}</p>
       {name === "Verified" ? (
         <div className="font-medium leading-none">
-          <Badge variant="outline">{data ? "Yes" : "No"}</Badge>
+          <Badge variant="outline">{data}</Badge>
         </div>
       ) : (
         <div className="font-medium leading-none">
