@@ -31,13 +31,13 @@ export interface BookType {
 
 export interface getMyBookType extends generalResponseType {
   book: {
-    description: true;
-    author: true;
-    price: true;
-    feedbacks: true;
+    description: string;
+    author: string;
+    price: number;
+    feedbacks: string[];
     genre: {
-      id: true;
-      name: true;
+      id: string;
+      name: string;
     };
   } & BookType;
 }

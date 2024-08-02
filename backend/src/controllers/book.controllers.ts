@@ -1,5 +1,6 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
+import { z } from "zod";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import {
   z_id,
@@ -91,7 +92,6 @@ export async function UpdateBook(c: Context) {
     return c.json({
       success: true,
       status: 200,
-      updatedBook,
     });
   } catch (error) {
     return c.json({
@@ -235,6 +235,7 @@ export async function GetMyBook(c: Context) {
         createdAt: true,
         price: true,
         feedbacks: true,
+        listed: true,
         genre: {
           select: {
             id: true,
@@ -298,6 +299,19 @@ export async function GetBooks(c: Context) {
 
 export async function GetMyBooks(c: Context) {
   const userId: string = c.get("userId");
+  const params = c.req.param();
+  const { success, data } = z
+    .object({ listed: z.string() })
+    .strip()
+    .safeParse(params);
+
+  if (!success) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "Invalid inputs are passed.",
+    });
+  }
 
   try {
     const prisma = new PrismaClient({
@@ -308,12 +322,16 @@ export async function GetMyBooks(c: Context) {
       where: {
         sellerId: userId,
         sold: false,
+        listed: data.listed == "true" ? true : false,
       },
       select: {
         name: true,
         createdAt: true,
         price: true,
         id: true,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 

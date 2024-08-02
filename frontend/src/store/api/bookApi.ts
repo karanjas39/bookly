@@ -5,9 +5,12 @@ import {
   getMyBookType,
 } from "@/utils/types/apiTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { z_sellBook_type } from "@singhjaskaran/bookly-common";
+import {
+  z_sellBook_type,
+  z_updateSellBook_type,
+} from "@singhjaskaran/bookly-common";
 import { RootState } from "@/store/index";
-import { tagTypes, LISTED_BOOKS_TAG } from "@/store/api/tags";
+import { tagTypes, MY_BOOKS_TAG, BOOK_BY_ID } from "@/store/api/tags";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
@@ -29,17 +32,29 @@ export const bookApi = createApi({
         method: "POST",
         body: bookDetails,
       }),
-      invalidatesTags: [LISTED_BOOKS_TAG],
+      invalidatesTags: [MY_BOOKS_TAG],
+    }),
+    updateBook: builder.mutation<generalResponseType, z_updateSellBook_type>({
+      query: (dataToUpdate) => ({
+        url: "book/update",
+        method: "PUT",
+        body: dataToUpdate,
+      }),
+      invalidatesTags: [MY_BOOKS_TAG, BOOK_BY_ID],
     }),
     getBookById: builder.query<getMyBookType, { bookId: string }>({
       query: (params) => {
         const { bookId } = params;
         return `user/book/single/${bookId}`;
       },
+      providesTags: [BOOK_BY_ID],
     }),
-    myBooks: builder.query<getMyBooksType, void>({
-      query: () => "user/book/all",
-      providesTags: [LISTED_BOOKS_TAG],
+    myBooks: builder.query<getMyBooksType, { listed: boolean }>({
+      query: (param) => {
+        console.log(param);
+        return `user/book/all/${param.listed}`;
+      },
+      providesTags: [MY_BOOKS_TAG],
     }),
   }),
 });

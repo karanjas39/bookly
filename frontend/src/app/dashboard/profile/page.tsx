@@ -44,7 +44,7 @@ export default function Profile() {
 
 function ProfileBox({ name, data }: { name: string; data: string }) {
   return (
-    <div className="flex text-sm  lg:flex-row flex-col lg:justify-between">
+    <div className="flex text-sm gap-4 items-center justify-normal lg:justify-between">
       <p className="text-muted-foreground">{name}</p>
       {name === "Verified" ? (
         <div className="font-medium leading-none">

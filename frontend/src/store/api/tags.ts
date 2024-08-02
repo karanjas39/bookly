@@ -1,4 +1,5 @@
-export const tagTypes = ["user", "listedBooks"] as const;
+export const tagTypes = ["user", "myBooks", "bookById"] as const;
 
 export const USER_TAG = "user";
-export const LISTED_BOOKS_TAG = "listedBooks";
+export const MY_BOOKS_TAG = "myBooks";
+export const BOOK_BY_ID = "bookById";

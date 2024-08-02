@@ -7,31 +7,28 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ListedBookDetail from "@/components/ui/Dashboard/Listed Books/ListedBookDetail";
 import Loader from "@/components/ui/Loader";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
-  TableCaption,
   TableRow,
 } from "@/components/ui/table";
-
 import { bookApi } from "@/store/api/bookApi";
 import { modifyDate } from "@/utils/helpers";
 
-export default function ListedBooks() {
-  const { data, isLoading } = bookApi.useMyBooksQuery({ listed: true });
+export default function UnlistedBooks() {
+  const { data, isLoading } = bookApi.useMyBooksQuery({ listed: false });
 
   if (isLoading) return <Loader />;
 
   return (
-    // Add className="h-[50px] overflow-scroll" to content to scroll
     <Card>
       <CardHeader>
-        <CardTitle>Listed Books</CardTitle>
+        <CardTitle>Unlisted Books</CardTitle>
         <CardDescription>
           Search and manage for books you have listed.
         </CardDescription>
@@ -56,9 +53,7 @@ export default function ListedBooks() {
                       <TableCell className="text-center hidden lg:block">
                         {modifyDate(book.createdAt)}
                       </TableCell>
-                      <TableCell className="text-right">
-                        <ListedBookDetail id={book.id} />
-                      </TableCell>
+                      <TableCell className="text-right"></TableCell>
                     </TableRow>
                   ))}
               </TableBody>

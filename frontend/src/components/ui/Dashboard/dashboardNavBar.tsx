@@ -11,6 +11,7 @@ import {
   HomeIcon,
   ListBulletIcon,
   MagnifyingGlassIcon,
+  Pencil2Icon,
   PersonIcon,
   PlusIcon,
 } from "@radix-ui/react-icons";
@@ -72,6 +73,12 @@ export default function DashboardNavBar() {
         >
           <ListBulletIcon className="icon-size" />
           <DashboardNavPara open={open}>Listed Books</DashboardNavPara>
+        </DashboardNavItems>
+        <DashboardNavItems
+          handleOnClick={() => router.push("/dashboard/unlisted-books")}
+        >
+          <Pencil2Icon className="icon-size" />
+          <DashboardNavPara open={open}>Unlisted Books</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems>
           <MagnifyingGlassIcon className="icon-size" />

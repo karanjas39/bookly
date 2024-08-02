@@ -24,7 +24,7 @@ User.get("/detail", authMiddleware, UserDetail);
 User.put("/password/update", authMiddleware, UpdatePassword);
 
 // BOOK
-User.get("/book/all", authMiddleware, isverifiedMiddleware, GetMyBooks);
+User.get("/book/all/:listed", authMiddleware, isverifiedMiddleware, GetMyBooks);
 User.get("/book/single/:id", authMiddleware, isverifiedMiddleware, GetMyBook);
 
 // FEEDBACK
