@@ -27,6 +27,12 @@ export interface BookType {
   createdAt: string;
   listed: boolean;
   id: string;
+  author?: string;
+  price?: number;
+}
+
+export interface AllBooksType extends generalResponseType {
+  books: BookType[];
 }
 
 export interface getMyBookType extends generalResponseType {

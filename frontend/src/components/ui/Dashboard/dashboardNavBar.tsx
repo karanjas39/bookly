@@ -80,7 +80,7 @@ export default function DashboardNavBar() {
           <Pencil2Icon className="icon-size" />
           <DashboardNavPara open={open}>Unlisted Books</DashboardNavPara>
         </DashboardNavItems>
-        <DashboardNavItems>
+        <DashboardNavItems handleOnClick={() => router.push("/books")}>
           <MagnifyingGlassIcon className="icon-size" />
 
           <DashboardNavPara open={open}>Explore Books</DashboardNavPara>

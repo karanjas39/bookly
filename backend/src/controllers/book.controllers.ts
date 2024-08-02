@@ -1,6 +1,5 @@
 import { Context } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
-import { z } from "zod";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import {
   z_id,
@@ -276,9 +275,9 @@ export async function GetBooks(c: Context) {
         sold: false,
       },
       select: {
+        id: true,
         name: true,
         author: true,
-        createdAt: true,
         price: true,
       },
     });

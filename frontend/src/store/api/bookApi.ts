@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/utils/constants";
 import {
+  AllBooksType,
   generalResponseType,
   getMyBooksType,
   getMyBookType,
@@ -10,7 +11,7 @@ import {
   z_updateSellBook_type,
 } from "@singhjaskaran/bookly-common";
 import { RootState } from "@/store/index";
-import { tagTypes, MY_BOOKS_TAG, BOOK_BY_ID } from "@/store/api/tags";
+import { tagTypes, MY_BOOKS_TAG, BOOK_BY_ID, ALL_BOOK } from "@/store/api/tags";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
@@ -48,6 +49,10 @@ export const bookApi = createApi({
         return `user/book/single/${bookId}`;
       },
       providesTags: [BOOK_BY_ID],
+    }),
+    getAllBooks: builder.query<AllBooksType, void>({
+      query: () => `book/bulk`,
+      providesTags: [ALL_BOOK],
     }),
     deleteBook: builder.mutation<getMyBookType, { id: string }>({
       query: (query) => ({

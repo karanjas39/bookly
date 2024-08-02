@@ -5,8 +5,8 @@ import { Label } from "@/components/ui/label";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  tag: string;
+  label?: string;
+  tag?: string;
   comment?: string;
 }
 
