@@ -5,6 +5,7 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import {
   z_id,
   z_id_type,
+  z_myBooks,
   z_sellBook,
   z_sellBook_type,
   z_updateSellBook,
@@ -15,7 +16,7 @@ export async function SellBook(c: Context) {
   const userId: string = c.get("userId");
   const body: z_sellBook_type = await c.req.json();
 
-  const { success } = z_sellBook.safeParse(body);
+  const { success, data } = z_sellBook.strip().safeParse(body);
 
   if (!success) {
     return c.json({
@@ -32,12 +33,13 @@ export async function SellBook(c: Context) {
 
     const newBook = await prisma.book.create({
       data: {
-        name: body.name,
-        description: body.description || "",
-        author: body.author,
-        price: body.price,
-        genreId: body.genreId,
+        name: data.name,
+        description: data.description || "",
+        author: data.author,
+        price: data.price,
+        genreId: data.genreId,
         sellerId: userId,
+        listed: data.listed,
       },
     });
 
@@ -300,10 +302,7 @@ export async function GetBooks(c: Context) {
 export async function GetMyBooks(c: Context) {
   const userId: string = c.get("userId");
   const params = c.req.param();
-  const { success, data } = z
-    .object({ listed: z.string() })
-    .strip()
-    .safeParse(params);
+  const { success, data } = z_myBooks.strip().safeParse(params);
 
   if (!success) {
     return c.json({

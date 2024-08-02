@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.z_createGenre = exports.z_createBuyRequest = exports.z_createFeedback = exports.z_id = exports.z_updateSellBook = exports.z_sellBook = exports.z_updatePassword = exports.z_singIn = exports.z_signUp = void 0;
+exports.z_createGenre = exports.z_createBuyRequest = exports.z_createFeedback = exports.z_id = exports.z_updateSellBook = exports.z_myBooks = exports.z_sellBook = exports.z_updatePassword = exports.z_singIn = exports.z_signUp = void 0;
 const zod_1 = require("zod");
 exports.z_signUp = zod_1.z.object({
     name: zod_1.z.string(),
@@ -21,7 +21,9 @@ exports.z_sellBook = zod_1.z.object({
     author: zod_1.z.string(),
     price: zod_1.z.number(),
     genreId: zod_1.z.string().uuid(),
+    listed: zod_1.z.boolean().optional(),
 });
+exports.z_myBooks = zod_1.z.object({ listed: zod_1.z.string() });
 exports.z_updateSellBook = zod_1.z.object({
     id: zod_1.z.string().uuid(),
     name: zod_1.z.string().optional(),

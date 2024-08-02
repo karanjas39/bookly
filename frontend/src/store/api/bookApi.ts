@@ -49,9 +49,16 @@ export const bookApi = createApi({
       },
       providesTags: [BOOK_BY_ID],
     }),
+    deleteBook: builder.mutation<getMyBookType, { id: string }>({
+      query: (query) => ({
+        url: "book/delete",
+        method: "DELETE",
+        body: query,
+      }),
+      invalidatesTags: [MY_BOOKS_TAG],
+    }),
     myBooks: builder.query<getMyBooksType, { listed: boolean }>({
       query: (param) => {
-        console.log(param);
         return `user/book/all/${param.listed}`;
       },
       providesTags: [MY_BOOKS_TAG],

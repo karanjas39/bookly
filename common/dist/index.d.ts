@@ -38,18 +38,28 @@ export declare const z_sellBook: z.ZodObject<{
     author: z.ZodString;
     price: z.ZodNumber;
     genreId: z.ZodString;
+    listed: z.ZodOptional<z.ZodBoolean>;
 }, "strip", z.ZodTypeAny, {
     name: string;
     author: string;
     price: number;
     genreId: string;
     description?: string | undefined;
+    listed?: boolean | undefined;
 }, {
     name: string;
     author: string;
     price: number;
     genreId: string;
     description?: string | undefined;
+    listed?: boolean | undefined;
+}>;
+export declare const z_myBooks: z.ZodObject<{
+    listed: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    listed: string;
+}, {
+    listed: string;
 }>;
 export declare const z_updateSellBook: z.ZodObject<{
     id: z.ZodString;
@@ -111,6 +121,7 @@ export type z_signUp_type = z.infer<typeof z_signUp>;
 export type z_singIn_type = z.infer<typeof z_singIn>;
 export type z_updatePassword_type = z.infer<typeof z_updatePassword>;
 export type z_sellBook_type = z.infer<typeof z_sellBook>;
+export type z_myBooks_type = z.infer<typeof z_myBooks>;
 export type z_updateSellBook_type = z.infer<typeof z_updateSellBook>;
 export type z_id_type = z.infer<typeof z_id>;
 export type z_createFeedback_type = z.infer<typeof z_createFeedback>;

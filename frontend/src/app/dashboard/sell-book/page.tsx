@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,6 +35,7 @@ export default function AddBook() {
     description: "",
     genreId: "",
     price: 0,
+    listed: true,
   });
   const { toast } = useToast();
   const { data, isLoading } = genreApi.useGetGenresQuery();
@@ -56,14 +58,19 @@ export default function AddBook() {
     try {
       const response = await sellBook(sellBookdata).unwrap();
       if (response && response.success) {
-        toast({ description: "Your book is successfuly listed for sale." });
-        setBookDetail({
+        if (bookDetail.listed) {
+          toast({ description: "Your book is successfuly listed for sale." });
+        } else {
+          toast({ description: "Your book is successfuly saved as draft." });
+        }
+        setBookDetail((prev) => ({
           name: "",
           author: "",
           description: "",
           genreId: "",
           price: 0,
-        });
+          listed: prev.listed,
+        }));
         return;
       } else throw new Error();
     } catch (error) {
@@ -159,8 +166,22 @@ export default function AddBook() {
               })
             }
           />
+          <div className="flex items-center gap-4">
+            <Label htmlFor="listed">Save as draft</Label>
+            <Switch
+              id="listed"
+              checked={!bookDetail.listed}
+              onCheckedChange={() =>
+                setBookDetail((prev) => ({ ...prev, listed: !prev.listed }))
+              }
+            />
+          </div>
           <Button onClick={handleSellBook}>
-            {isSellBookLoading ? "Listing book for sale..." : "Sell Book"}
+            {isSellBookLoading
+              ? bookDetail.listed
+                ? "Listing book for sale..."
+                : "Saving book as draft..."
+              : "Sell Book"}
           </Button>
         </div>
       </CardContent>

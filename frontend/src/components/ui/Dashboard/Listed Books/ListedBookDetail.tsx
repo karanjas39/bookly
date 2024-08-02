@@ -6,6 +6,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { bookApi } from "@/store/api/bookApi";
@@ -50,6 +61,8 @@ function ListedBookDetail({ id }: { id: string }) {
     genreApi.useGetGenresQuery();
   const [updateBook, { isLoading: isUpdatingBook }] =
     bookApi.useUpdateBookMutation();
+  const [deleteBook, { isLoading: isDeletingBook }] =
+    bookApi.useDeleteBookMutation();
   const { toast } = useToast();
 
   const handleMoreDetails = async () => {
@@ -73,6 +86,15 @@ function ListedBookDetail({ id }: { id: string }) {
     const response = await updateBook({ id, ...bookDetail }).unwrap();
     if (response && response.success) {
       toast({ description: "Book details are updated successfuly." });
+    } else {
+      toast({ description: finalError });
+    }
+  }
+
+  async function handleDeleteBook() {
+    const response = await deleteBook({ id }).unwrap();
+    if (response && response.success) {
+      toast({ description: "Book is deleted successfuly." });
     } else {
       toast({ description: finalError });
     }
@@ -113,7 +135,7 @@ function ListedBookDetail({ id }: { id: string }) {
               </div>
             </TabsContent>
             <TabsContent value="edit">
-              {genres?.allGenres && (
+              {!isLoadingGenres && genres?.allGenres && (
                 <div className="flex flex-col gap-4">
                   <Input
                     label="Title"
@@ -213,7 +235,28 @@ function ListedBookDetail({ id }: { id: string }) {
                     <Button onClick={handleSaveChanges}>
                       {isUpdatingBook ? "Saving..." : "Save changes"}
                     </Button>
-                    <Button variant="destructive">Delete book</Button>{" "}
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <Button variant="destructive">Delete Book</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your book draft.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleDeleteBook}>
+                            {isDeletingBook ? "Deleting..." : "Continue"}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
               )}

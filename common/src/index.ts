@@ -22,7 +22,10 @@ export const z_sellBook = z.object({
   author: z.string(),
   price: z.number(),
   genreId: z.string().uuid(),
+  listed: z.boolean().optional(),
 });
+
+export const z_myBooks = z.object({ listed: z.string() });
 
 export const z_updateSellBook = z.object({
   id: z.string().uuid(),
@@ -58,6 +61,8 @@ export type z_singIn_type = z.infer<typeof z_singIn>;
 export type z_updatePassword_type = z.infer<typeof z_updatePassword>;
 
 export type z_sellBook_type = z.infer<typeof z_sellBook>;
+
+export type z_myBooks_type = z.infer<typeof z_myBooks>;
 
 export type z_updateSellBook_type = z.infer<typeof z_updateSellBook>;
 

@@ -18,6 +18,7 @@ import {
   TableCaption,
   TableRow,
 } from "@/components/ui/table";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 import { bookApi } from "@/store/api/bookApi";
 import { modifyDate } from "@/utils/helpers";
@@ -28,47 +29,52 @@ export default function ListedBooks() {
   if (isLoading) return <Loader />;
 
   return (
-    // Add className="h-[50px] overflow-scroll" to content to scroll
-    <Card>
-      <CardHeader>
-        <CardTitle>Listed Books</CardTitle>
-        <CardDescription>
-          Search and manage for books you have listed.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Table className="overflow-x-auto">
-          {data?.books && (
-            <>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[250px]">Name</TableHead>
-                  <TableHead className="text-center hidden lg:block">
-                    Listed On
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.books?.length &&
-                  data.books.map((book) => (
-                    <TableRow key={book.id}>
-                      <TableCell className="font-medium">{book.name}</TableCell>
-                      <TableCell className="text-center hidden lg:block">
-                        {modifyDate(book.createdAt)}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <ListedBookDetail id={book.id} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </>
-          )}
-          {!data?.books?.length && (
-            <TableCaption>You have not listed any book for sale.</TableCaption>
-          )}
-        </Table>
-      </CardContent>
-    </Card>
+    <ScrollArea className="h-[550px] min-h-max w-full mb-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Listed Books</CardTitle>
+          <CardDescription>
+            Search and manage for books you have listed.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table className="overflow-x-auto">
+            {data?.books && (
+              <>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[250px]">Name</TableHead>
+                    <TableHead className="text-center hidden lg:block">
+                      Listed On
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {data.books?.length &&
+                    data.books.map((book) => (
+                      <TableRow key={book.id}>
+                        <TableCell className="font-medium">
+                          {book.name}
+                        </TableCell>
+                        <TableCell className="text-center hidden lg:block">
+                          {modifyDate(book.createdAt)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <ListedBookDetail id={book.id} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </>
+            )}
+            {!data?.books?.length && (
+              <TableCaption>
+                You have not listed any book for sale.
+              </TableCaption>
+            )}
+          </Table>
+        </CardContent>
+      </Card>
+    </ScrollArea>
   );
 }
