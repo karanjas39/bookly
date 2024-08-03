@@ -40,10 +40,48 @@ export interface getMyBookType extends generalResponseType {
     description: string;
     author: string;
     price: number;
-    feedbacks: string[];
+    feedbacks: feedbackType[];
     genre: {
       id: string;
       name: string;
     };
   } & BookType;
+}
+
+export interface getBookDeatilType extends getMyBookType {
+  seller: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export interface feedbackType {
+  id: string;
+  feedback: string;
+  createdAt: string;
+  user: {
+    name: string;
+    email: string;
+    id: string;
+  };
+}
+
+export interface bookDetailType {
+  seller?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  description: string;
+  author: string;
+  price: number;
+  feedbacks: feedbackType[];
+  genre: {
+    id: string;
+    name: string;
+  };
+  name: string;
+  createdAt: string;
+  id: string;
 }

@@ -11,7 +11,7 @@ import Link from "next/link";
 
 function BookTemplate({ book }: { book: BookType }) {
   return (
-    <Card>
+    <Card className="flex flex-col justify-between">
       <CardHeader>
         <CardTitle className="text-2xl">{book.name}</CardTitle>
         <CardDescription>{book.author}</CardDescription>

@@ -2,6 +2,7 @@ import { BACKEND_URL } from "@/utils/constants";
 import {
   AllBooksType,
   generalResponseType,
+  getBookDeatilType,
   getMyBooksType,
   getMyBookType,
 } from "@/utils/types/apiTypes";
@@ -49,6 +50,12 @@ export const bookApi = createApi({
         return `user/book/single/${bookId}`;
       },
       providesTags: [BOOK_BY_ID],
+    }),
+    getBookDetails: builder.query<getBookDeatilType, { bookId: string }>({
+      query: (params) => {
+        const { bookId } = params;
+        return `book/single/${bookId}`;
+      },
     }),
     getAllBooks: builder.query<AllBooksType, void>({
       query: () => `book/bulk`,

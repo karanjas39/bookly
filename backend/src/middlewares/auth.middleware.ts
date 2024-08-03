@@ -76,3 +76,30 @@ export async function isverifiedMiddleware(c: Context, next: Next) {
     });
   }
 }
+
+export async function getUserId(c: Context, next: Next) {
+  try {
+    const jwt = c.req.header("Authorization");
+
+    if (!jwt) {
+      c.set("userId", null);
+      return await next();
+    }
+
+    const token = jwt.split(" ")[1];
+    const payload = await verify(token, c.env.JWT_SECRET);
+
+    if (!payload) {
+      c.set("userId", null);
+      return await next();
+    }
+    c.set("userId", payload.userId);
+    return await next();
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 400,
+      message: "[Error] while verifying the token.",
+    });
+  }
+}

@@ -173,7 +173,20 @@ export async function GetBook(c: Context) {
         author: true,
         createdAt: true,
         price: true,
-        feedbacks: true,
+        feedbacks: {
+          select: {
+            id: true,
+            feedback: true,
+            createdAt: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
         seller: {
           select: {
             id: true,
@@ -265,6 +278,7 @@ export async function GetMyBook(c: Context) {
 
 export async function GetBooks(c: Context) {
   try {
+    const userId: string = c.get("userId");
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
@@ -273,6 +287,7 @@ export async function GetBooks(c: Context) {
       where: {
         listed: true,
         sold: false,
+        ...(userId && { NOT: { sellerId: userId } }),
       },
       select: {
         id: true,

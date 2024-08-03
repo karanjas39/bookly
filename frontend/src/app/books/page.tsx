@@ -13,8 +13,6 @@ function Books() {
 
   if (isLoading && !data) return <Loader />;
 
-  console.log(data);
-
   return (
     <div>
       <NavBar />

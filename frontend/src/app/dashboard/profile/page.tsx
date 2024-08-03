@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import Loader from "@/components/ui/Loader";
 import { userApi } from "@/store/api/userApi";
 import { modifyDate } from "@/utils/helpers";

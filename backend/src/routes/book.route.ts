@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import {
   authMiddleware,
+  getUserId,
   isverifiedMiddleware,
 } from "../middlewares/auth.middleware";
 import {
@@ -31,7 +32,7 @@ const Book = new Hono<{
 
 // BOOK
 Book.get("/single/:id", GetBook);
-Book.get("/bulk", GetBooks);
+Book.get("/bulk", getUserId, GetBooks);
 Book.post("/sell", authMiddleware, isverifiedMiddleware, SellBook);
 Book.put("/update", authMiddleware, isverifiedMiddleware, UpdateBook);
 Book.delete("/delete", authMiddleware, isverifiedMiddleware, DeleteBook);
