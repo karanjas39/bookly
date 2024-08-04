@@ -18,7 +18,8 @@ model User {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  listedBooks Book[]
+  listedBooks Book[]     @relation(name: "ListedBooks")
+  boughtBooks Book[]     @relation(name: "BoughtBooks")
   feedbacks   Feedback[]
   buyRequests BuyRequest[]
 }
@@ -36,8 +37,10 @@ model Book {
   feedbacks   Feedback[]
   buyRequests BuyRequest[]
   
+  buyerId     String?  
+  buyer       User?      @relation(fields: [buyerId], references: [id], name: "BoughtBooks")
   sellerId    String
-  seller      User      @relation(fields: [sellerId], references: [id])
+  seller      User       @relation(fields: [sellerId], references: [id], name: "ListedBooks")
   genreId     String
   genre       Genre     @relation(fields: [genreId], references: [id])
 

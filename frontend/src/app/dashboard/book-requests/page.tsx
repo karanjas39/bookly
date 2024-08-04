@@ -133,7 +133,9 @@ export default function BookRequests() {
               ))}
             </div>
           ) : (
-            <p></p>
+            <p className="text-center text-muted-foreground text-sm">
+              No new requests for your books.
+            </p>
           )}
         </CardContent>
       </Card>

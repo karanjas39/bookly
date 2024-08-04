@@ -87,8 +87,6 @@ export async function AcceptBuyrequest(c: Context) {
     });
   }
 
-  console.log(data);
-
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
@@ -119,6 +117,7 @@ export async function AcceptBuyrequest(c: Context) {
       data: {
         sold: true,
         listed: false,
+        buyerId: buyRequest.userId,
       },
     });
 
