@@ -113,7 +113,7 @@ function Bookdetails({ book }: { book: bookDetailType }) {
                 No feedbacks are available for this book.
               </p>
             ) : (
-              <ScrollArea className="h-[300px] min-h-max mt-3">
+              <ScrollArea className="max-h-[300px] min-h-max mt-3">
                 <div className="flex flex-col gap-3 pr-4">
                   {book.feedbacks.map((feed) => {
                     return (

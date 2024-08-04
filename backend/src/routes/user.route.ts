@@ -4,8 +4,14 @@ import {
   isverifiedMiddleware,
 } from "../middlewares/auth.middleware";
 import { UserDetail, UpdatePassword } from "../controllers/user.controllers";
-import { UserAllFeedbacks } from "../controllers/feedback.controllers";
-import { AllBuyRequest } from "../controllers/bookRequest.controllers";
+import {
+  UserAllFeedbacks,
+  UserBookAllFeedbacks,
+} from "../controllers/feedback.controllers";
+import {
+  AllAcceptedBuyRequest,
+  AllBuyRequest,
+} from "../controllers/bookRequest.controllers";
 import { AllGenres } from "../controllers/genre.controllers";
 import { GetMyBook, GetMyBooks } from "../controllers/book.controllers";
 
@@ -35,12 +41,26 @@ User.get(
   UserAllFeedbacks
 );
 
+User.get(
+  "/feedback/book/all",
+  authMiddleware,
+  isverifiedMiddleware,
+  UserBookAllFeedbacks
+);
+
 // BUY REQUEST
 User.get(
   "/buy-request/all",
   authMiddleware,
   isverifiedMiddleware,
   AllBuyRequest
+);
+
+User.get(
+  "/buy-request/accepted/all",
+  authMiddleware,
+  isverifiedMiddleware,
+  AllAcceptedBuyRequest
 );
 
 // GENRE

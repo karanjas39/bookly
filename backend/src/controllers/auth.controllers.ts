@@ -117,7 +117,6 @@ export async function Signin(c: Context) {
       success: true,
       status: 200,
       token,
-      user,
     });
   } catch (error) {
     return c.json({

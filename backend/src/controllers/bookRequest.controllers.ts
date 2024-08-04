@@ -184,3 +184,35 @@ export async function AllBuyRequest(c: Context) {
     });
   }
 }
+
+export async function AllAcceptedBuyRequest(c: Context) {
+  const userId: string = c.get("userId");
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const acceptedBuyRequests = await prisma.book.findMany({
+      where: {
+        buyerId: userId,
+      },
+      select: {
+        name: true,
+        author: true,
+      },
+    });
+
+    return c.json({
+      success: true,
+      status: 200,
+      acceptedBuyRequests,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while fetching accepted buy reqs.",
+    });
+  }
+}

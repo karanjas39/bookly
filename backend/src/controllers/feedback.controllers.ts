@@ -138,3 +138,55 @@ export async function UserAllFeedbacks(c: Context) {
     });
   }
 }
+
+export async function UserBookAllFeedbacks(c: Context) {
+  const userId: string = c.get("userId");
+
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const userFeedbacks = await prisma.book.findMany({
+      where: {
+        sellerId: userId,
+      },
+      select: {
+        feedbacks: {
+          select: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+            feedback: true,
+            book: {
+              select: {
+                name: true,
+                author: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    if (!userFeedbacks) throw new Error();
+
+    return c.json({
+      success: true,
+      status: 200,
+      userFeedbacks,
+    });
+  } catch (error) {
+    return c.json({
+      success: false,
+      status: 404,
+      message: "[Error] while fetching these feedback.",
+    });
+  }
+}
