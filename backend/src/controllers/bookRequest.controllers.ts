@@ -87,6 +87,8 @@ export async function AcceptBuyrequest(c: Context) {
     });
   }
 
+  console.log(data);
+
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
@@ -144,10 +146,13 @@ export async function AllBuyRequest(c: Context) {
     const buyRequests = await prisma.book.findMany({
       where: {
         sellerId: userId,
+        listed: true,
+        sold: false,
       },
       select: {
         buyRequests: {
           select: {
+            id: true,
             book: {
               select: {
                 name: true,

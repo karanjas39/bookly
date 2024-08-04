@@ -93,7 +93,7 @@ export default function DashboardNavBar() {
           <DashboardNavPara open={open}>Book Requests</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
-          handleOnClick={() => router.push("/dashboard/book-requests")}
+          handleOnClick={() => router.push("/dashboard/feedbacks")}
         >
           <EnvelopeOpenIcon className="icon-size" />
           <DashboardNavPara open={open}>Feedbacks</DashboardNavPara>

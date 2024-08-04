@@ -85,3 +85,33 @@ export interface bookDetailType {
   createdAt: string;
   id: string;
 }
+
+export interface myFeedbacksType extends generalResponseType {
+  userFeedbacks: userFeedbackObjType[];
+}
+
+export interface userFeedbackObjType {
+  book: {
+    name: string;
+    author: string;
+  };
+  createdAt: string;
+  feedback: string;
+  id: string;
+}
+
+export interface buyRequestsType extends generalResponseType {
+  buyRequests: {
+    buyRequests: {
+      id: string;
+      book: {
+        name: string;
+        author: string;
+      };
+      user: {
+        name: string;
+        email: string;
+      };
+    }[];
+  }[];
+}

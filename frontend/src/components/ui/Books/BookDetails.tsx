@@ -48,7 +48,6 @@ function Bookdetails({ book }: { book: bookDetailType }) {
 
     try {
       const response = await createBuyRequest(data).unwrap();
-      console.log(response);
       if (response && response.success) {
         toast({ description: "Your buy request has been created." });
         return;

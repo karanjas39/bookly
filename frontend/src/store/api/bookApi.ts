@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/utils/constants";
 import {
   AllBooksType,
+  buyRequestsType,
   generalResponseType,
   getBookDeatilType,
   getMyBooksType,
@@ -9,6 +10,7 @@ import {
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   z_createBuyRequest_type,
+  z_id_type,
   z_sellBook_type,
   z_updateSellBook_type,
 } from "@singhjaskaran/bookly-common";
@@ -19,6 +21,7 @@ import {
   BOOK_BY_ID,
   ALL_BOOK,
   DETAILED_BOOK,
+  MY_BUY_REQS,
 } from "@/store/api/tags";
 
 export const bookApi = createApi({
@@ -86,6 +89,18 @@ export const bookApi = createApi({
         method: "POST",
         body: query,
       }),
+    }),
+    acceptBuyrequest: builder.mutation<generalResponseType, z_id_type>({
+      query: (query) => ({
+        url: "book/buy-request/accept",
+        method: "POST",
+        body: query,
+      }),
+      invalidatesTags: [MY_BUY_REQS],
+    }),
+    getBuyRequests: builder.query<buyRequestsType, void>({
+      query: () => "user/buy-request/all",
+      providesTags: [MY_BUY_REQS],
     }),
     myBooks: builder.query<getMyBooksType, { listed: boolean }>({
       query: (param) => {

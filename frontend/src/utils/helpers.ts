@@ -5,11 +5,11 @@ export function modifyDate(isoString: string | undefined): string {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-    hour12: true,
-    timeZone: "UTC",
+    // hour: "numeric",
+    // minute: "numeric",
+    // second: "numeric",
+    // hour12: true,
+    // timeZone: "UTC",
   };
 
   const humanReadableDate = date.toLocaleString("en-US", options);
