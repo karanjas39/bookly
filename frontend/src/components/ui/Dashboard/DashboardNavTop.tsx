@@ -2,7 +2,6 @@
 
 import { ModeToggle } from "@/components/ui/themeToggle";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { clearToken } from "@/store/slices/authSlice";
@@ -11,6 +10,7 @@ import { bookApi } from "@/store/api/bookApi";
 import { genreApi } from "@/store/api/genreApi";
 import { userApi } from "@/store/api/userApi";
 import { AppDispatch } from "@/store";
+import { feedbackApi } from "@/store/api/feedbackApi";
 
 export default function DashboardNavTop() {
   const pathName = usePathname().split("/");
@@ -25,6 +25,7 @@ export default function DashboardNavTop() {
       dispatch(bookApi.util.resetApiState());
       dispatch(genreApi.util.resetApiState());
       dispatch(userApi.util.resetApiState());
+      dispatch(feedbackApi.util.resetApiState());
       dispatch(clearToken());
     });
     router.replace("/signin");

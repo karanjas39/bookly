@@ -46,7 +46,6 @@ export async function CreateFeedback(c: Context) {
     return c.json({
       success: true,
       status: 200,
-      newFeedback,
     });
   } catch (error) {
     return c.json({

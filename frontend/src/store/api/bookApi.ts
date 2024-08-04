@@ -8,11 +8,18 @@ import {
 } from "@/utils/types/apiTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  z_createBuyRequest_type,
   z_sellBook_type,
   z_updateSellBook_type,
 } from "@singhjaskaran/bookly-common";
 import { RootState } from "@/store/index";
-import { tagTypes, MY_BOOKS_TAG, BOOK_BY_ID, ALL_BOOK } from "@/store/api/tags";
+import {
+  tagTypes,
+  MY_BOOKS_TAG,
+  BOOK_BY_ID,
+  ALL_BOOK,
+  DETAILED_BOOK,
+} from "@/store/api/tags";
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
@@ -56,6 +63,7 @@ export const bookApi = createApi({
         const { bookId } = params;
         return `book/single/${bookId}`;
       },
+      providesTags: [DETAILED_BOOK],
     }),
     getAllBooks: builder.query<AllBooksType, void>({
       query: () => `book/bulk`,
@@ -68,6 +76,16 @@ export const bookApi = createApi({
         body: query,
       }),
       invalidatesTags: [MY_BOOKS_TAG],
+    }),
+    createBuyrequest: builder.mutation<
+      generalResponseType,
+      z_createBuyRequest_type
+    >({
+      query: (query) => ({
+        url: "book/buy-request/create",
+        method: "POST",
+        body: query,
+      }),
     }),
     myBooks: builder.query<getMyBooksType, { listed: boolean }>({
       query: (param) => {

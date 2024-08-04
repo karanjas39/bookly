@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +18,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { bookApi } from "@/store/api/bookApi";
@@ -38,6 +52,7 @@ import { genreApi } from "@/store/api/genreApi";
 import { z_sellBook_type } from "@singhjaskaran/bookly-common";
 import { useToast } from "../../use-toast";
 import { finalError } from "@/utils/constants";
+import { modifyDate } from "@/utils/helpers";
 
 interface bookDetailType extends z_sellBook_type {
   listed: boolean;
@@ -117,9 +132,10 @@ function ListedBookDetail({ id }: { id: string }) {
           </DialogHeader>
 
           <Tabs defaultValue="detail" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="detail">Details</TabsTrigger>
               <TabsTrigger value="edit">Edit</TabsTrigger>
+              <TabsTrigger value="feedback">Feedbacks</TabsTrigger>
             </TabsList>
             <TabsContent value="detail">
               <div className="flex flex-col gap-2 mt-2">
@@ -259,6 +275,44 @@ function ListedBookDetail({ id }: { id: string }) {
                     </AlertDialog>
                   </div>
                 </div>
+              )}
+            </TabsContent>
+            <TabsContent value="feedback">
+              {!data.book.feedbacks.length ? (
+                <p className="text-sm">
+                  No feedbacks are available for this book.
+                </p>
+              ) : (
+                <ScrollArea className="h-[300px] min-h-max mt-3">
+                  <div className="flex flex-col gap-3 pr-4">
+                    {data.book.feedbacks.map((feed) => {
+                      return (
+                        <Card key={feed.id}>
+                          <CardHeader>
+                            <CardTitle>
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger>
+                                    {feed.user.name}
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>{feed.user.email}</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </CardTitle>
+                            <CardDescription>
+                              {modifyDate(feed.createdAt)}
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <p>{feed.feedback}</p>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
               )}
             </TabsContent>
           </Tabs>

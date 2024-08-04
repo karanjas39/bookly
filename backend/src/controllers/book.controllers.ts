@@ -168,6 +168,7 @@ export async function GetBook(c: Context) {
         listed: true,
       },
       select: {
+        id: true,
         name: true,
         description: true,
         author: true,
@@ -248,7 +249,20 @@ export async function GetMyBook(c: Context) {
         author: true,
         createdAt: true,
         price: true,
-        feedbacks: true,
+        feedbacks: {
+          select: {
+            id: true,
+            feedback: true,
+            createdAt: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
         listed: true,
         genre: {
           select: {

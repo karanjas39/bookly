@@ -5,6 +5,7 @@ import { authApi } from "@/store/api/authApi";
 import { userApi } from "@/store/api/userApi";
 import { genreApi } from "@/store/api/genreApi";
 import { bookApi } from "@/store/api/bookApi";
+import { feedbackApi } from "./api/feedbackApi";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [bookApi.reducerPath]: bookApi.reducer,
     [genreApi.reducerPath]: genreApi.reducer,
+    [feedbackApi.reducerPath]: feedbackApi.reducer,
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -19,7 +21,8 @@ export const store = configureStore({
       authApi.middleware,
       userApi.middleware,
       genreApi.middleware,
-      bookApi.middleware
+      bookApi.middleware,
+      feedbackApi.middleware
     ),
 });
 

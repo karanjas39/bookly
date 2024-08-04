@@ -41,6 +41,15 @@ export async function CreateBuyRequest(c: Context) {
     )
       throw new Error();
 
+    const isAlreadyRequested = await prisma.buyRequest.findFirst({
+      where: {
+        bookId: body.bookId,
+        userId,
+      },
+    });
+
+    if (isAlreadyRequested) throw new Error();
+
     const newBookRequest = await prisma.buyRequest.create({
       data: {
         bookId: data.bookId,

@@ -18,9 +18,11 @@ function BookTemplate({ book }: { book: BookType }) {
       </CardHeader>
       <CardContent>
         <div className="flex justify-between items-end">
-          <p className="font-bold text-xl">&#8377;{book.price}</p>
+          <p className="font-bold text-xl">
+            {book.price !== 0 ? <>&#8377; {book.price}</> : "Free"}
+          </p>
           <Link href={`/books/${book.id}`}>
-            <Button variant="outline">view details</Button>
+            <Button variant="outline">View details</Button>
           </Link>
         </div>
       </CardContent>

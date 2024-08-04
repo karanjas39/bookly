@@ -11,16 +11,52 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Label } from "../label";
+import { Textarea } from "../textarea";
+import { feedbackApi } from "@/store/api/feedbackApi";
+import { useToast } from "../use-toast";
+import { z_createFeedback } from "@singhjaskaran/bookly-common";
+import { finalError } from "@/utils/constants";
 
-function FeedbackDialog() {
+function FeedbackDialog({ bookId }: { bookId: string }) {
   const { token } = useSelector((state: RootState) => state.auth);
   const [isLoggedIn, setisLoggedIn] = useState<boolean>(false);
   const router = useRouter();
+  const [feedback, setFeedback] = useState<string>("");
+  const [createFeedback, { isLoading }] =
+    feedbackApi.useCreateFeedbackMutation();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!token) setisLoggedIn(false);
     else setisLoggedIn(true);
   }, []);
+
+  async function handleCreateFeedback() {
+    if (!feedback) {
+      return toast({ description: "All fields are required." });
+    }
+
+    console.log(bookId, feedback);
+
+    const { success, data } = z_createFeedback
+      .strip()
+      .safeParse({ bookId, feedback });
+    if (!success) {
+      return toast({ description: "Provide valid inputs to continue." });
+    }
+
+    try {
+      const response = await createFeedback(data).unwrap();
+      if (response && response.success) {
+        toast({ description: "Your feedback is created successfuly" });
+        setFeedback("");
+        return;
+      } else throw new Error();
+    } catch (error) {
+      return toast({ description: finalError });
+    }
+  }
 
   return (
     <Dialog>
@@ -34,12 +70,23 @@ function FeedbackDialog() {
       {isLoggedIn && (
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>Leave Feedaback</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Give your feedback on this book.
             </DialogDescription>
           </DialogHeader>
+          <div className="flex flex-col gap-3">
+            <Label htmlFor="description">Feedback</Label>
+            <Textarea
+              id="description"
+              placeholder="Enter book feedback"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+            />
+            <Button onClick={handleCreateFeedback}>
+              {isLoading ? "Submitting..." : "Submit"}
+            </Button>
+          </div>
         </DialogContent>
       )}
     </Dialog>
