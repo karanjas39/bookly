@@ -66,7 +66,9 @@ export const bookApi = createApi({
         const { bookId } = params;
         return `book/single/${bookId}`;
       },
-      providesTags: [DETAILED_BOOK],
+      providesTags: (result, error, arg) => [
+        { type: DETAILED_BOOK, id: arg.bookId },
+      ],
     }),
     getAllBooks: builder.query<AllBooksType, void>({
       query: () => `book/bulk`,

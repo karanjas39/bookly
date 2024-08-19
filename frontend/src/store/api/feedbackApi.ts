@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "@/utils/constants";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/store/index";
-import { MY_FEEDBACKS, tagTypes } from "@/store/api/tags";
+import { DETAILED_BOOK, MY_FEEDBACKS, tagTypes } from "@/store/api/tags";
 import { z_createFeedback_type, z_id_type } from "@singhjaskaran/bookly-common";
 import { generalResponseType, myFeedbacksType } from "@/utils/types/apiTypes";
 
@@ -28,7 +28,9 @@ export const feedbackApi = createApi({
         method: "POST",
         body: query,
       }),
-      invalidatesTags: [MY_FEEDBACKS],
+      invalidatesTags: (result, error, arg) => [
+        { type: DETAILED_BOOK, id: arg.bookId },
+      ],
     }),
     getMyFeedbacks: builder.query<myFeedbacksType, void>({
       query: () => "user/feedback/all",

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LoadingSVG from "../../../public/loader.svg";
+import LoadingSVG from "/public/loader.svg";
 
 export default function Loader() {
   return (
