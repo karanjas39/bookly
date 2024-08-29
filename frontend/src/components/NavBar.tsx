@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
 
-export default function NavBar() {
+export default function Navbar() {
   const { token } = useSelector((s: RootState) => s.auth);
   const [isLoggedIn, setIsLoggedin] = useState<boolean>(false);
   const path = usePathname();

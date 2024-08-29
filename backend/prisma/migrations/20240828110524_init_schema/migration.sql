@@ -4,7 +4,8 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "verified" BOOLEAN NOT NULL,
+    "admin" BOOLEAN DEFAULT false,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -19,8 +20,10 @@ CREATE TABLE "Book" (
     "author" TEXT NOT NULL,
     "listed" BOOLEAN NOT NULL DEFAULT true,
     "price" DOUBLE PRECISION NOT NULL,
+    "sold" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "buyerId" TEXT,
     "sellerId" TEXT NOT NULL,
     "genreId" TEXT NOT NULL,
 
@@ -30,7 +33,6 @@ CREATE TABLE "Book" (
 -- CreateTable
 CREATE TABLE "BuyRequest" (
     "id" TEXT NOT NULL,
-    "sold" BOOLEAN NOT NULL,
     "userId" TEXT NOT NULL,
     "bookId" TEXT NOT NULL,
 
@@ -73,6 +75,9 @@ CREATE INDEX "feedback_given_by_idx" ON "Feedback"("givenBy");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Genre_name_key" ON "Genre"("name");
+
+-- AddForeignKey
+ALTER TABLE "Book" ADD CONSTRAINT "Book_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Book" ADD CONSTRAINT "Book_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

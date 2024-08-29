@@ -23,14 +23,12 @@ export async function Signup(c: Context) {
     });
   }
 
-  // const { DATABASE_URL } = env<{ DATABASE_URL: string }>(c);
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const salt = genSaltSync(c.env.SALT);
-    const hashedPassword = hashSync(body.password, salt);
+    const hashedPassword = hashSync(body.password, 10);
 
     const newUser = await prisma.user.create({
       data: {

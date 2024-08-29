@@ -1,7 +1,7 @@
 "use client";
 
 import Footer from "@/components/footer";
-import NavBar from "@/components/navBar";
+import Navbar from "@/components/Navbar";
 import BookTemplate from "@/components/ui/Books/BookTemplate";
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/ui/Loader";
@@ -15,7 +15,7 @@ function Books() {
 
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <div className="w-[60%] mx-auto mt-3">
         <div className="flex items-center justify-between">
           <p className="text-3xl font-bold ">Books Catalog</p>

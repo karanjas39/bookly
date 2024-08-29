@@ -1,6 +1,6 @@
 "use client";
 
-import NavBar from "@/components/navBar";
+import NavBar from "@/components/Navbar";
 import Bookdetails from "@/components/ui/Books/BookDetails";
 import Loader from "@/components/ui/Loader";
 import { bookApi } from "@/store/api/bookApi";

@@ -1,14 +1,14 @@
 import Image from "next/image";
-import Banner from "../../public/banner.jpg";
+import Banner from "../../public/bookly.jpg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Footer from "@/components/footer";
-import NavBar from "@/components/navBar";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
+      <Navbar />
       <div className="grid grid-cols-1  lg:grid-cols-2 gap-4 items-center lg:w-[80%] w-[90%] mx-auto mt-8 lg:mt-3">
         <div className="flex flex-col gap-3">
           <p className="lg:text-7xl text-5xl font-extrabold">
