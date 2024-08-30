@@ -1,9 +1,9 @@
 "use client";
 
-import AccountBox from "@/components/ui/Account/AccountBox";
-import AccountFooter from "@/components/ui/Account/AccountFooter";
-import AccountHeader from "@/components/ui/Account/accountHeader";
-import AccountInputBox from "@/components/ui/Account/AccountInputBox";
+import AccountBox from "@/components/Account/AccountBox";
+import AccountFooter from "@/components/Account/AccountFooter";
+import AccountHeader from "@/components/Account/accountHeader";
+import AccountInputBox from "@/components/Account/AccountInputBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";

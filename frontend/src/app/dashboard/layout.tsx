@@ -1,7 +1,7 @@
-import DashboardNavBar from "@/components/ui/Dashboard/DashboardNavBar";
-import Footer from "@/components/footer";
-import DashboardNavTop from "@/components/ui/Dashboard/DashboardNavTop";
-import ProtectedProvider from "@/components/ProtectedProvider";
+import DashboardNavBar from "@/components/Dashboard/dashboardNavBar";
+import Footer from "@/components/Footer/footer";
+import DashboardNavTop from "@/components/Dashboard/DashboardNavTop";
+import ProtectedProvider from "@/components/ProtectedRoutes/ProtectedProvider";
 
 export default function DashboardLayout({
   children,

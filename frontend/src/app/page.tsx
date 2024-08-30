@@ -2,8 +2,8 @@ import Image from "next/image";
 import Banner from "../../public/bookly.jpg";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Footer from "@/components/footer";
-import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer/footer";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
   return (

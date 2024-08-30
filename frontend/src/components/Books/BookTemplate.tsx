@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "../button";
+import { Button } from "@/components/ui/button";
 import { BookType } from "@/utils/types/apiTypes";
 import Link from "next/link";
 

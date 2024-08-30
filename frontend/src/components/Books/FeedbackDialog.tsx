@@ -11,10 +11,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Label } from "../label";
-import { Textarea } from "../textarea";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { feedbackApi } from "@/store/api/feedbackApi";
-import { useToast } from "../use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { z_createFeedback } from "@singhjaskaran/bookly-common";
 import { finalError } from "@/utils/constants";
 
@@ -36,8 +36,6 @@ function FeedbackDialog({ bookId }: { bookId: string }) {
     if (!feedback) {
       return toast({ description: "All fields are required." });
     }
-
-    console.log(bookId, feedback);
 
     const { success, data } = z_createFeedback
       .strip()

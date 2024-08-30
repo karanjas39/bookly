@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import UnlistedBookDetail from "@/components/ui/Dashboard/Unlisted Books/UnListedBookDetail";
+import UnlistedBookDetail from "@/components/Dashboard/Unlisted Books/UnListedBookDetail";
 import Loader from "@/components/ui/Loader";
 import {
   Table,

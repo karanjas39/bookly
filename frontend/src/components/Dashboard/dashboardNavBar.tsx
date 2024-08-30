@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import DashboardNavItems from "./DashboardNavItems";
-import Logo from "../logo";
+import Logo from "@/components/ui/logo";
 import { useRouter } from "next/navigation";
 import {
   BellIcon,

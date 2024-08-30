@@ -1,12 +1,14 @@
 "use client";
 
-import Footer from "@/components/footer";
-import Navbar from "@/components/Navbar";
-import BookTemplate from "@/components/ui/Books/BookTemplate";
+import Footer from "@/components/Footer/footer";
+import Navbar from "@/components/Navbar/Navbar";
+import BookTemplate from "@/components/Books/BookTemplate";
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/ui/Loader";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { bookApi } from "@/store/api/bookApi";
+import { BooksTable } from "@/components/Books/BooksTable/data-table";
+import { columns } from "@/components/Books/BooksTable/columns";
 
 function Books() {
   const { data, isLoading } = bookApi.useGetAllBooksQuery();
@@ -14,22 +16,17 @@ function Books() {
   if (isLoading && !data) return <Loader />;
 
   return (
-    <div>
+    <div className="flex flex-col gap-3 h-screen">
       <Navbar />
-      <div className="w-[60%] mx-auto mt-3">
+      <div className="w-[80%] mx-auto mt-3 flex-1 flex flex-col gap-5">
         <div className="flex items-center justify-between">
-          <p className="text-3xl font-bold ">Books Catalog</p>
-          <Input placeholder="Search by title or author" />
+          <p className="text-3xl font-bold ">Bookly's Stock</p>
         </div>
-        <ScrollArea className="h-[550px] min-h-max p-4 mt-7 pt-0">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {data &&
-              data.books &&
-              data.books.map((book) => (
-                <BookTemplate key={book.id} book={book} />
-              ))}
-          </div>
-        </ScrollArea>
+        <div>
+          {data && data.books.length ? (
+            <BooksTable columns={columns} data={data.books} />
+          ) : null}
+        </div>
       </div>
       <Footer />
     </div>

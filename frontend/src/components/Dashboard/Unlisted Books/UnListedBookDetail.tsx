@@ -32,10 +32,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../select";
+} from "@/components/ui/select";
 import { genreApi } from "@/store/api/genreApi";
 import { z_sellBook_type } from "@singhjaskaran/bookly-common";
-import { useToast } from "../../use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { finalError } from "@/utils/constants";
 
 interface bookDetailType extends z_sellBook_type {

@@ -3,7 +3,7 @@
 import { type ReactNode } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/store/index";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 
 interface ClientProvidersProps {

@@ -16,15 +16,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "../badge";
+import { Badge } from "@/components/ui/badge";
 import { modifyDate } from "@/utils/helpers";
 import FeedbackDialog from "./FeedbackDialog";
-import { ScrollArea } from "../scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
 import { bookApi } from "@/store/api/bookApi";
-import { useToast } from "../use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { finalError } from "@/utils/constants";
 import { z_createBuyRequest } from "@singhjaskaran/bookly-common";
 
