@@ -2,10 +2,7 @@
 
 import Footer from "@/components/Footer/footer";
 import Navbar from "@/components/Navbar/Navbar";
-import BookTemplate from "@/components/Books/BookTemplate";
-import { Input } from "@/components/ui/input";
 import Loader from "@/components/ui/Loader";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { bookApi } from "@/store/api/bookApi";
 import { BooksTable } from "@/components/Books/BooksTable/data-table";
 import { columns } from "@/components/Books/BooksTable/columns";
@@ -23,7 +20,7 @@ function Books() {
           <p className="text-3xl font-bold ">Bookly's Stock</p>
         </div>
         <div>
-          {data && data.books.length ? (
+          {data && data.books?.length ? (
             <BooksTable columns={columns} data={data.books} />
           ) : null}
         </div>

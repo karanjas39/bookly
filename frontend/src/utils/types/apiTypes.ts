@@ -29,6 +29,10 @@ export interface BookType {
   id: string;
   author?: string;
   price?: number;
+  description?: string;
+  genre?: {
+    name: string;
+  };
 }
 
 export interface AllBooksType extends generalResponseType {
