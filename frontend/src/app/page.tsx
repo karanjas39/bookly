@@ -20,7 +20,7 @@ export default function Home() {
           </p>
           <Link href="/books">
             <Button variant="default" className="w-min">
-              Explore bookly's stock
+              Explore bookly&apos;s stock
             </Button>
           </Link>
         </div>

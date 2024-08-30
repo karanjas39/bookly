@@ -83,8 +83,8 @@ export default function BookRequests() {
         <CardContent>
           {reqs.length ? (
             <div className="flex flex-col gap-3">
-              {reqs.map((req) => (
-                <Card>
+              {reqs.map((req, i) => (
+                <Card key={i}>
                   <CardHeader>
                     <CardTitle>{req.book.name}</CardTitle>
                     <CardDescription>{req.book.author}</CardDescription>
@@ -92,7 +92,10 @@ export default function BookRequests() {
                   <CardContent>
                     <ScrollArea className="max-h-[100px] min-h-max">
                       {req.users.map((user) => (
-                        <div className="flex items-center justify-between mb-2">
+                        <div
+                          className="flex items-center justify-between mb-2"
+                          key={user.reqId}
+                        >
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger>{user.name}</TooltipTrigger>
