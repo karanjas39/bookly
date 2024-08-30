@@ -34,7 +34,7 @@ function AcceptedRequests() {
           These are the recently accepted book requests
         </CardDescription>
       </CardHeader>
-      {data && data.acceptedBuyRequests ? (
+      {data && data.acceptedBuyRequests?.length ? (
         <CardContent>
           <Table>
             <TableHeader>
@@ -76,7 +76,7 @@ function AcceptedRequests() {
           </Table>
         </CardContent>
       ) : (
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center text-sm text-muted-foreground py-3">
           No accepted book request
         </p>
       )}
