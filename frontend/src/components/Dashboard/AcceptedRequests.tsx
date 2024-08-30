@@ -53,7 +53,10 @@ function AcceptedRequests() {
             </TableHeader>
             <TableBody>
               {data.acceptedBuyRequests.map((req, i) => (
-                <TableRow onClick={() => router.push(`/books/${req.id}`)}>
+                <TableRow
+                  onClick={() => router.push(`/books/${req.id}`)}
+                  key={req.id}
+                >
                   <TableCell className="text-left">{i + 1}.</TableCell>
                   <TableCell className="text-center">{req.name}</TableCell>
                   <TableCell className="text-center">{req.author}</TableCell>

@@ -17,7 +17,7 @@ function Books() {
       <Navbar />
       <div className="w-[80%] mx-auto mt-3 flex-1 flex flex-col">
         <div className="flex items-center justify-between">
-          <p className="text-3xl font-bold ">Bookly's Stock</p>
+          <p className="text-3xl font-bold ">Bookly&apos;s Stock</p>
         </div>
         <div>
           {data && data.books?.length ? (

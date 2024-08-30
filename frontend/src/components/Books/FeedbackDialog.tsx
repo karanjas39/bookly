@@ -30,7 +30,7 @@ function FeedbackDialog({ bookId }: { bookId: string }) {
   useEffect(() => {
     if (!token) setisLoggedIn(false);
     else setisLoggedIn(true);
-  }, []);
+  }, [token]);
 
   async function handleCreateFeedback() {
     if (!feedback) {
