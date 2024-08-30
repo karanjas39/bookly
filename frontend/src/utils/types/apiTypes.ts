@@ -38,6 +38,14 @@ export interface BookType {
 export interface AllBooksType extends generalResponseType {
   books: BookType[];
 }
+export interface AllAcceptedBookReqsType extends generalResponseType {
+  acceptedBuyRequests: {
+    id: string;
+    author: string;
+    name: string;
+    seller: { name: string; email: string };
+  }[];
+}
 
 export interface getMyBookType extends generalResponseType {
   book: {
@@ -78,6 +86,7 @@ export interface bookDetailType {
     email: string;
   };
   description: string;
+  sold?: boolean;
   author: string;
   price: number;
   feedbacks: feedbackType[];

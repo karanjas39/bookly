@@ -15,14 +15,18 @@ function Books() {
   return (
     <div className="flex flex-col gap-3 h-screen">
       <Navbar />
-      <div className="w-[80%] mx-auto mt-3 flex-1 flex flex-col gap-5">
+      <div className="w-[80%] mx-auto mt-3 flex-1 flex flex-col">
         <div className="flex items-center justify-between">
           <p className="text-3xl font-bold ">Bookly's Stock</p>
         </div>
         <div>
           {data && data.books?.length ? (
             <BooksTable columns={columns} data={data.books} />
-          ) : null}
+          ) : (
+            <p className="text-sm text-muted-foreground text-center mt-5">
+              No book is listed yet. Lets do the beginning...
+            </p>
+          )}
         </div>
       </div>
       <Footer />

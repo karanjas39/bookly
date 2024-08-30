@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/utils/constants";
 import {
+  AllAcceptedBookReqsType,
   AllBooksType,
   buyRequestsType,
   generalResponseType,
@@ -103,6 +104,9 @@ export const bookApi = createApi({
     getBuyRequests: builder.query<buyRequestsType, void>({
       query: () => "user/buy-request/all",
       providesTags: [MY_BUY_REQS],
+    }),
+    getAllAcceptedBookRequests: builder.query<AllAcceptedBookReqsType, void>({
+      query: () => "user/buy-request/accepted/all",
     }),
     myBooks: builder.query<getMyBooksType, { listed: boolean }>({
       query: (param) => {

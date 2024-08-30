@@ -58,12 +58,6 @@ export default function DashboardNavBar() {
           <DashboardNavPara open={open}>Dashboard</DashboardNavPara>
         </DashboardNavItems>
         <DashboardNavItems
-          handleOnClick={() => router.push("/dashboard/profile")}
-        >
-          <PersonIcon className="icon-size" />
-          <DashboardNavPara open={open}>Profile</DashboardNavPara>
-        </DashboardNavItems>
-        <DashboardNavItems
           handleOnClick={() => router.push("/dashboard/sell-book")}
         >
           <PlusIcon className="icon-size" />

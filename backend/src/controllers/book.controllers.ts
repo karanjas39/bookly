@@ -165,7 +165,6 @@ export async function GetBook(c: Context) {
     const book = await prisma.book.findUnique({
       where: {
         id: data.id,
-        listed: true,
       },
       select: {
         id: true,
@@ -173,6 +172,7 @@ export async function GetBook(c: Context) {
         description: true,
         author: true,
         createdAt: true,
+        sold: true,
         price: true,
         feedbacks: {
           select: {

@@ -65,15 +65,15 @@ export function BooksTable<TData extends BookType, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 w-full">
         <Input
           placeholder="Search anything to search book..."
           value={globalFilter || ""}
           onChange={(event) => setGlobalFilter(event.target.value || undefined)}
-          className="max-w-sm"
+          className="sm:w-[30%] w-full"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border w-full">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

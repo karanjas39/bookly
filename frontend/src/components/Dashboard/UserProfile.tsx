@@ -21,7 +21,7 @@ export default function Profile() {
     <Card>
       <CardHeader>
         <CardTitle>Profile</CardTitle>
-        <CardDescription>Manage your profile details</CardDescription>
+        <CardDescription>This is your profile details</CardDescription>
       </CardHeader>
       {data && (
         <CardContent>

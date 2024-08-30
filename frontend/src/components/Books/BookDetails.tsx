@@ -60,10 +60,10 @@ function Bookdetails({ book }: { book: bookDetailType }) {
   return (
     <div className="w-[95%] lg:w-[60%] mx-auto my-4 flex flex-col gap-3">
       <div className="flex items-center self-end gap-3">
-        <Link href="/books">
-          <Button variant="secondary">Back</Button>
-        </Link>
-        <FeedbackDialog bookId={book.id} />
+        <Button variant="secondary" onClick={() => router.back()}>
+          Back
+        </Button>
+        {!book.sold ? <FeedbackDialog bookId={book.id} /> : null}
       </div>
       <Card>
         <CardHeader>
@@ -81,7 +81,9 @@ function Bookdetails({ book }: { book: bookDetailType }) {
             <CardTitle className="text-4xl">
               {book.price !== 0 ? <>&#8377; {book.price}</> : "Free"}
             </CardTitle>
-            <Badge>In stock</Badge>
+            <Badge variant={!book.sold ? "default" : "destructive"}>
+              {!book.sold ? "In stock" : "Sold"}
+            </Badge>
           </div>
           {/* Description */}
           <div>
@@ -100,9 +102,11 @@ function Bookdetails({ book }: { book: bookDetailType }) {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <Button onClick={handleBuyrequest}>
-                {isLoading ? "Requesting..." : "Request to buy"}
-              </Button>
+              {!book.sold ? (
+                <Button onClick={handleBuyrequest}>
+                  {isLoading ? "Requesting..." : "Request to buy"}
+                </Button>
+              ) : null}
             </div>
           </div>
           {/* feedbacks */}

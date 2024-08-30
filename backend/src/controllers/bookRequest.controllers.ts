@@ -198,8 +198,15 @@ export async function AllAcceptedBuyRequest(c: Context) {
         buyerId: userId,
       },
       select: {
+        id: true,
         name: true,
         author: true,
+        seller: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
       },
     });
 
