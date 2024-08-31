@@ -9,12 +9,12 @@ import { ColumnDef } from "@tanstack/react-table";
 const multiFieldFilter = (row: any, columnId: string, filterValue: string) => {
   if (!filterValue) return true;
 
-  const { name, description, author } = row.original;
+  const { name, author, genre } = row.original;
   const lowerFilterValue = filterValue.toLowerCase();
 
   return (
     name.toLowerCase().includes(lowerFilterValue) ||
-    description.toLowerCase().includes(lowerFilterValue) ||
+    genre.name.toLowerCase().includes(lowerFilterValue) ||
     author.toLowerCase().includes(lowerFilterValue)
   );
 };
@@ -28,12 +28,6 @@ export const columns: ColumnDef<BookType>[] = [
       if (index <= 9) return `0${index}`;
       else return index;
     },
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-    cell: (info) => info.getValue(),
-    meta: { hidden: true },
   },
   {
     accessorKey: "name",
@@ -142,6 +136,5 @@ export const columns: ColumnDef<BookType>[] = [
         </div>
       );
     },
-    filterFn: multiFieldFilter,
   },
 ];

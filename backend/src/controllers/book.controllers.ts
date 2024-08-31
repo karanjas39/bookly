@@ -307,7 +307,6 @@ export async function GetBooks(c: Context) {
         id: true,
         name: true,
         author: true,
-        description: true,
         price: true,
         genre: {
           select: {
