@@ -27,6 +27,7 @@ import { bookApi } from "@/store/api/bookApi";
 import { useToast } from "@/components/ui/use-toast";
 import { finalError } from "@/utils/constants";
 import { z_createBuyRequest } from "@singhjaskaran/bookly-common";
+import { Share1Icon } from "@radix-ui/react-icons";
 
 function Bookdetails({ book }: { book: bookDetailType }) {
   const { token } = useSelector((state: RootState) => state.auth);
@@ -57,11 +58,46 @@ function Bookdetails({ book }: { book: bookDetailType }) {
     }
   }
 
+  async function handleShare() {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `Check out this book: ${book.name}`,
+          text: `Hey, take a look at this awesome resource: ${book.name} by ${book.author}!`,
+          url: window.location.href,
+        });
+        console.log("Content shared successfully!");
+      } else {
+        // Fallback: Copy the URL to the clipboard and show a toast notification
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          description:
+            "URL copied to clipboard since Web Share API is not supported in your browser.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+      toast({
+        description: "Failed to share the content. Please try again.",
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <div className="w-[95%] lg:w-[60%] mx-auto my-4 flex flex-col gap-3">
       <div className="flex items-center self-end gap-3">
         <Button variant="secondary" onClick={() => router.back()}>
           Back
+        </Button>
+        <Button
+          variant="secondary"
+          className="flex items-center gap-1"
+          onClick={handleShare}
+        >
+          <span>Share</span>
+          <Share1Icon />
         </Button>
         {!book.sold ? <FeedbackDialog bookId={book.id} /> : null}
       </div>
