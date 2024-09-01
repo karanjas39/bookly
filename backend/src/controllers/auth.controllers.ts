@@ -8,7 +8,7 @@ import {
   z_signUp_type,
   z_singIn_type,
 } from "@singhjaskaran/bookly-common";
-import { genSaltSync, hashSync, compareSync } from "bcrypt-ts";
+import { hashSync, compareSync } from "bcrypt-ts";
 
 export async function Signup(c: Context) {
   const body: z_signUp_type = await c.req.json();
