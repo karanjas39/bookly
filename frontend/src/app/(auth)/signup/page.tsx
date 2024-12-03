@@ -104,6 +104,7 @@ export default function SignUp() {
           type="password"
           className="w-full"
           value={userDetail.password}
+          placeholder="******"
           onChange={(e) =>
             setUserDetail((prev) => {
               return { ...prev, password: e.target.value };
@@ -115,13 +116,14 @@ export default function SignUp() {
           tag="confirm-password"
           type="password"
           className="w-full"
+          placeholder="******"
           onChange={(e) =>
             setUserDetail((prev) => {
               return { ...prev, confirmPassword: e.target.value };
             })
           }
         />
-        <Button onClick={handleSignUpForm}>
+        <Button onClick={handleSignUpForm} disabled={isLoading}>
           {isLoading ? "Signing Up..." : "Sign Up"}
         </Button>
       </AccountInputBox>

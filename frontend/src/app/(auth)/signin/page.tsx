@@ -78,13 +78,14 @@ export default function SignIn() {
           type="password"
           tag="password"
           value={userCred.password}
+          placeholder="******"
           onChange={(e) =>
             setUserCred((prev) => {
               return { ...prev, password: e.target.value };
             })
           }
         />
-        <Button onClick={handleSignInForm}>
+        <Button onClick={handleSignInForm} disabled={isLoading}>
           {isLoading ? "Signing In..." : "Sign In"}
         </Button>
       </AccountInputBox>
